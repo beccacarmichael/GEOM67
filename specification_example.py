@@ -13,3 +13,7 @@ print("The calculated height for the apartment given is:  <calculated height>")
 
 print("\nPart 2: Calculating Possible Sunlight Hours at the perspective apartment. ")
 print("In that city, there are <calculated number of hours> possible hours of sunlight at the perspective apartment")
+
+
+
+test
