@@ -18,4 +18,4 @@ print("In that city, there are <calculated number of hours> possible hours of su
 
 test
 
-#test-yj
+test-yj
