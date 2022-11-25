@@ -15,4 +15,4 @@ print("\nPart 2: Calculating Possible Sunlight Hours at the perspective apartmen
 print("In that city, there are <calculated number of hours> possible hours of sunlight at the perspective apartment")
 
 
-print("test")
+print("test-YJ")
