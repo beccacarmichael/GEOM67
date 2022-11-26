@@ -31,9 +31,7 @@ minimumheight=adjacentbuildingheight-(math.tan((math.pi/180)*elevationangle))*bu
 minimumheight=round(minimumheight,2)
 
 #print("minimum height to receive sunlight in ",cityn, "is ", minimumheight)
-whichlevel=minimumheight/eachlevelheight
-whichlevel=int(whichlevel)
-print("you should go above", whichlevel, "th floor to be able to receive sunlight.")
+
 
 
 summaryhour=input("do you want to get the summary of sunlighthour in a year of your chosen city?y/n: ")
