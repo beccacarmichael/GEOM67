@@ -12,7 +12,7 @@ with open('latlong.txt','r') as f:
         lat.append(alist[1])
         long.append(alist[2])
     cityn=input("enter cityn: ")
-    cityn=cityn.lower()
+    cityn=cityn.upper()
     for i in range(len(city)):
         if cityn == city[i]:
             latitude=float(lat[i])
