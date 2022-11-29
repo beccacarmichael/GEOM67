@@ -8,7 +8,6 @@ with open("latlong.csv", newline="")as fo:
     flag=True
       
     for row in freader:
-        # for i in range(len(row)):
         if cityn in row:
             flag=False
             latitude=row[1]
