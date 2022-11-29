@@ -1,22 +1,24 @@
 import math
-
-
-with open('latlong.txt','r') as f:
-    lines=f.readlines()
-    city=[]
-    lat=[]
-    long=[]
-    for l in lines:
-        alist=l.split()
-        city.append(alist[0])
-        lat.append(alist[1])
-        long.append(alist[2])
+import csv
+with open("latlong.csv", newline="")as fo:
+    freader=list(csv.reader(fo))
+    # print(len(freader))
     cityn=input("enter cityn: ")
-    cityn=cityn.upper()
-    for i in range(len(city)):
-        if cityn == city[i]:
-            latitude=float(lat[i])
-            longi=float(long[i])
+    cityn=cityn.upper()  
+    flag=True
+      
+    for row in freader:
+        # for i in range(len(row)):
+        if cityn in row:
+            flag=False
+            latitude=row[1]
+            longi=row[2]
+            print(latitude, longi)
+            break
+    if flag:
+        latitude=input("enter lat: ")
+        longi=input("long: ")
+        print(latitude, longi)
 
 adjacentbuildingheight=30 # will change to input later, now just for convinience 
 buildingdistance=20
