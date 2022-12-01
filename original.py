@@ -27,7 +27,7 @@ eachlevelheight=3
 day=int(input("enter a day, Jan1-->day=1: "))
 
 declinationangle=-23.45*math.cos((math.pi/180)*(360/365)*(day+10))
-elevationangle=90-latitude+declinationangle
+elevationangle=90-float(latitude)+float(declinationangle)
 minimumheight=adjacentbuildingheight-(math.tan((math.pi/180)*elevationangle))*buildingdistance
 minimumheight=round(minimumheight,2)
 
@@ -40,7 +40,7 @@ if summaryhour== "y":
     
     alist=[]
     for d in range(1,366,100): #set to 100 for now, change later
-        sunlighthour=(1/15)*(180/math.pi)*(math.acos(((math.pi/180)*(-math.tan(latitude*(math.pi/180))*((math.tan(((23.44*(math.pi/180))*((math.sin(((360/365)*(math.pi/180)*(d+284)))))))))))))
+        sunlighthour=(1/15)*(180/math.pi)*(math.acos(((math.pi/180)*(-math.tan(float(latitude)*(math.pi/180))*((math.tan(((23.44*(math.pi/180))*((math.sin(((360/365)*(math.pi/180)*(d+284)))))))))))))
         sunlighthour=round(float(sunlighthour),2)
         alist.append(sunlighthour)
     print(alist)
