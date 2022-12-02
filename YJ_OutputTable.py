@@ -35,10 +35,10 @@ def main():
                     break
 
             if flag:
-                input_latitude=input("not found, enter lat: ") # if cityname is not found in the small list, ask for input manually
-                latitude.append(input_latitude) #append input_latitude to latitude list
-                input_longi=input("not found, enter long: ")
-                longitude.append(input_longi)#append input_longitude to longitude list
+                filelatitude=input("not found, enter lat: ") # if cityname is not found in the small list, ask for input manually
+                latitude.append(filelongitude) #append input_latitude to latitude list
+                filelongitude=input("not found, enter long: ")
+                longitude.append(filelongitude)#append input_longitude to longitude list
     
             #print(cityname,latitude,longitude)
             end = input("Do you want to stop entering values (Y/N)? ") 
