@@ -40,10 +40,10 @@ def main():
                 longitude_list.append(user_Longitude)#append input_longitude to longitude list
     
             #print(cityname,latitude,longitude)
-            end = input("Do you want to stop entering values (Y/N)? ") 
-            print()
-            if  end.upper() == 'Y' :
-                break
+        end = input("Do you want to stop entering values (Y/N)? ") 
+        print()
+        if  end.upper() == 'Y' :
+            break
 
     alist=zip(cityname_list,latitude_list,longitude_list) # combine small lists into a big list
     myheader=['City_Name','Latitude','Longitude','DayOfFocus','DayOfFocusHeight','DayofFocusHour','WinterHeight','SummerHeight','AnnualTotalSunlightHour','AnnualAvgSunlightHour','AnnualMinHour','AnnualMaxHour']
