@@ -22,7 +22,7 @@ def main():
         cityn=input("enter cityn: ")
         cityn=cityn.upper()  # upper case input, match the cityname in the csv file
         cityname.append(cityn)  # append user input to cityname list
-        with open("3.csv", newline="")as fo:
+        with open("latlong.csv", newline="")as fo:
             freader=list(csv.reader(fo)) # read the file into a big list
             flag=True
             for row in freader: # for small list in big list
@@ -48,7 +48,7 @@ def main():
 
     alist=zip(cityname,latitude,longitude) # combine small lists into a big list
     myheader=['CityName','Latitude','Longitude','DayOfFocus','DayOfFocusHeight','DayofFocusHour','WinterHeight','SummerHeight','WinterHeight','AnnualTotalSunlightHour','AnnualAvgSunlightHour','AnnualMinHour','AnnualMaxHour']
-    with open('output.csv','w',newline='') as newfile:
+    with open('output.csv','w',newline='') as newfile: #csv file name can be changed later, when we finalize it
         writer=csv.writer(newfile)
         writer.writerow(myheader)
         writer.writerows(alist)
