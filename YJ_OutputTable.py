@@ -47,7 +47,7 @@ def main():
                 break
 
     alist=zip(cityname_list,latitude_list,longitude_list) # combine small lists into a big list
-    myheader=['City_Name','Latitude','Longitude','DayOfFocus','DayOfFocusHeight','DayofFocusHour','WinterHeight','SummerHeight','WinterHeight','AnnualTotalSunlightHour','AnnualAvgSunlightHour','AnnualMinHour','AnnualMaxHour']
+    myheader=['City_Name','Latitude','Longitude','DayOfFocus','DayOfFocusHeight','DayofFocusHour','WinterHeight','SummerHeight','AnnualTotalSunlightHour','AnnualAvgSunlightHour','AnnualMinHour','AnnualMaxHour']
     with open('output.csv','w',newline='') as newfile: #csv file name can be changed later, when we finalize it
         writer=csv.writer(newfile)
         writer.writerow(myheader)
