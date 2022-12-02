@@ -11,7 +11,6 @@ def main():
     # DayofFocusHour=[]
     # WinterHeight=[]
     # SummerHeight=[]
-    # WinterHeight=[]
     # AnnualTotalSunlightHour=[]
     # AnnualAvgSunlightHour=[]
     # AnnualMinHour=[]
