@@ -1,4 +1,4 @@
-#import cities
+import csv
 cities = {"calgary": [1,1]}  # placeholder for when we have the actual list of city coordinates imported
 
 startMessage = """POTENTIAL SUNLIGHT EXPOSURE CALCULATOR FOR APARTMENT HUNTERS
@@ -7,23 +7,12 @@ This program will calculate statistical data about potential sunlight for a city
 This will aid apartment hunters in preventing selecting an apartment with less/ no sunlight exposure due to other buildings.
 """
 
-def getUserInputs ():
-    '''This function prompts the user to enter various pieces of information, and returns the inputs that the program needs:
-    
-    user_FocusMonth
-    user_FocusDay             
-    user_GISProjectPath       
-    user_GISProjectName       
-    user_GISMapName           
-    user_FeatureName           
-    DayVal                    
-    user_Latitude             
-    user_Longitude            
-    City_Name        
-    building_height
-    building_distance         
-    '''
+# get the city data from the csv - written by YJ
+with open("latlong.csv", newline="") as fo:
+    city_reference_list = list(csv.reader(fo)) # read the file into a big list
 
+
+def getInputForAnApartment ():
     ### Some constants that are used in this function
     daysInEachMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
     monthNumberFromEnglishName = {
@@ -57,19 +46,19 @@ def getUserInputs ():
     print("Please answer the following questions with information regarding the prospective apartment:")
 
     ### Get location data for apartment ###
-    user_Latitude = None
-    user_Longitude = None
+    latitude = None
+    longitude = None
     city_name = ""
 
     # This little function prompts the user for the latitude and longitude and returns them as floats, or returns them as "None" and asks the user to try again, if they can't be cast to floats
     def getLatLong ():
-        user_Latitude = input("Please enter the decimal latitude: ")
-        user_Longitude = input("Please enter the decimal longitude: ")
+        latitude = input("Please enter the decimal latitude: ")
+        longitude = input("Please enter the decimal longitude: ")
 
         # Make them floats.  If it doesn't work, return None for both values.
         try:
-            user_Latitude = float(user_Latitude)
-            user_Longitude = float(user_Longitude)
+            latitude = float(latitude)
+            longitude = float(longitude)
         except ValueError:
             print("Please enter both the latitude and longitude as numeric values (use decimal units).  Try again:\n")
 
@@ -77,24 +66,30 @@ def getUserInputs ():
             #   so if we couldn't make them numbers, make them None so that the loop will go again and the user can try entering the values again
             return None, None
 
-        return user_Latitude, user_Longitude
+        return latitude, longitude
 
-    while (user_Latitude is None or user_Longitude is None):
+    while (latitude is None or longitude is None):
         locationType = input("Would you like to select from a list of Canadian cities, or provide the latitude/longitude coordinates? (city/coords): ")
         if locationType == "coords":
-            user_Latitude, user_Longitude = getLatLong()
+            latitude, longitude = getLatLong()
 
         elif locationType == "city":
             province = input("Please enter the Canadian province/territory the prospective apartment is located in: ")
             city_name = input("Please enter the Canadian city the prospective apartment is located in: ")
-            city_name = city_name.lower()  # make the city name lowercase because the list of cities is lowercase
-            if city_name not in cities.keys():
+            city_name = city_name.upper()  # make the city name uppercase because the list of cities is uppercase
+            foundCity = False
+            for city_data in city_reference_list:
+                if city_name == city_data[0]:
+                    latitude = float(city_data[1])
+                    longitude = float(city_data[2])
+                    foundCity = True
+                    break
+            
+            if not foundCity:
                 print("That city isn’t in the system")
-                user_Latitude, user_Longitude = getLatLong()
-
-            else:
-                user_Latitude = cities[city_name][0]
-                user_Longitude = cities[city_name][1]
+                latitude, longitude = getLatLong()
+            
+            city_name = city_name + ", " + province.upper()  # add the province name to the city for display purposes
 
         else:
             print("Please reply with 'city' or 'coords' to decide how to input the location\n")
@@ -156,7 +151,37 @@ def getUserInputs ():
     
     # DayOfFocus - human readable date string for the output
     DayOfFocus = monthNames[user_FocusMonth - 1] + " " + str(user_FocusDay)
-  
+
+    ### return all the inputs for a single location ###
+    return DayOfFocus, DayVal, latitude, longitude, city_name, building_height, building_distance
+
+
+def getUserInputs ():
+
+    ### Get all the values for the locations ###
+    DayOfFocus_list = []
+    DayVal_list = []
+    latitude_list = []
+    longitude_list = []
+    city_name_list = []
+    building_height_list = []
+    building_distance_list = []
+
+    while (True):
+        DayOfFocus, DayVal, latitude, longitude, city_name, building_height, building_distance = getInputForAnApartment()
+        DayOfFocus_list.append(DayOfFocus)
+        DayVal_list.append(DayVal)
+        latitude_list.append(latitude)
+        longitude_list.append(longitude)
+        city_name_list.append(city_name)
+        building_height_list.append(building_height)
+        building_distance_list.append(DayOfFocus)
+        end = input("Do you want to stop entering values (Y/N)? ") 
+        print()
+        if end.upper() == 'Y' :
+            break
+
+
     ### get .gbd options ###
     # default values
     user_wants_gbd = False
@@ -183,27 +208,26 @@ def getUserInputs ():
     else:
         print("A .gbd file will not be generated")
 
+    return user_wants_gbd, user_GISProjectPath, user_GISProjectName, user_GISMapName, user_FeatureName, DayOfFocus_list, DayVal_list, latitude_list, longitude_list, city_name_list, building_height_list, building_distance_list
     
-    ### return all the inputs ###
-    return DayOfFocus, DayVal, user_FocusDay, user_wants_gbd, user_GISProjectPath, user_GISProjectName, user_GISMapName, user_FeatureName, user_Latitude, user_Longitude, city_name, building_height, building_distance
-
 
 ### This is just for testing. When the file is imported this code will not run ###
 if __name__ == "__main__":
     print(startMessage)
-    DayOfFocus, DayVal, user_FocusDay, user_wants_gbd, user_GISProjectPath, user_GISProjectName, user_GISMapName, user_FeatureName, user_Latitude, user_Longitude, city_name, building_height, building_distance = getUserInputs()
+    user_wants_gbd, user_GISProjectPath, user_GISProjectName, user_GISMapName, user_FeatureName, DayOfFocus_list, DayVal_list, latitude_list, longitude_list, city_name_list, building_height_list, building_distance_list = getUserInputs()
 
     print("\n")
-    print("DayOfFocus is: ", DayOfFocus)
-    print("DayVal is: ", DayVal)
-    print("user_FocusDay is: ", user_FocusDay)
+    print("DayOfFocus is: ", DayOfFocus_list)
+    print("DayVal_list is: ", DayVal_list)
+    print("latitude_list is: ", latitude_list)
+    print("longitude_list is: ", longitude_list)
+    print("city_name_list is: ", city_name_list)
+    print("building_height_list is: ", building_height_list)
+    print("building_distance_list is: ", building_distance_list)
+
+    print("\n.gbd settings:")
     print("user_wants_gbd is: ", user_wants_gbd)
     print("user_GISProjectPath is: ", user_GISProjectPath)
     print("user_GISProjectName is: ", user_GISProjectName)
     print("user_GISMapName is: ", user_GISMapName)
     print("user_FeatureName is: ", user_FeatureName)
-    print("user_Latitude is: ", user_Latitude)
-    print("user_Longitude is: ", user_Longitude)
-    print("city_name is: ", city_name)
-    print("building_height is: ", building_height)
-    print("building_distance is: ", building_distance)
