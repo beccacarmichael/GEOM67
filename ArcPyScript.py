@@ -13,48 +13,52 @@
 import os
 import arcpy
 cwd = os.getcwd()
-arcpy.env.workspace = (cwd + r"\A3Team7Project.gdb")
-# arcpy.env.overwriteOutput = True          #Turn this on if you wish to overwrite files instead of making copys,and remove the following While loop. 
 
-#Setting up ArcPy Mapping Module
-aprx = arcpy.mp.ArcGISProject(cwd + r"\A3Team7Project.aprx")
-Map1 = aprx.listMaps()[0]
+def main(): 
+    arcpy.env.workspace = (cwd + r"\A3Team7Project.gdb")
+    # arcpy.env.overwriteOutput = True          #Turn this on if you wish to overwrite files instead of making copys,and remove the following While loop. 
 
-#Preparing the Table
-aFile = cwd + r"\A3Team7Output.csv" 
-output_gdb = cwd + r"\A3Team7Project.gdb"
-output_gdbALT = cwd + "\\A3Team7Project.gdb\\"
-A3T7_feature_class = "A3Team7"
+    #Setting up ArcPy Mapping Module
+    aprx = arcpy.mp.ArcGISProject(cwd + r"\A3Team7Project.aprx")
+    Map1 = aprx.listMaps()[0]
 
-#Issue handling if there is an existing Feature Dataset in the geodatabase with the same name. 
-#Alternatively, this section can be removed and acrpy.env.overwriteOutput can be set to True
-while True:
-    if arcpy.Exists(A3T7_feature_class):
-        print("Warning! Renaming Feature Class. Advise removing previous versions of the A3Team7 file(s) from the geodatabase and Shapefile folder")
-        A3T7_feature_class = A3T7_feature_class + "_copy"
-    else:
-        break
+    #Preparing the Table
+    aFile = cwd + r"\A3Team7Output.csv" 
+    output_gdb = cwd + r"\A3Team7Project.gdb"
+    output_gdbALT = cwd + "\\A3Team7Project.gdb\\"
+    A3T7_feature_class = "A3Team7"
 
-# XYTable to Point - Converting the Table to a Point Feature Class
-# Without setting the optional spatial reference parameter, spatial reference will be WGS1984 by default
-x_coords = "Longitude"
-y_coords = "Latitude"
-arcpy.management.XYTableToPoint(aFile, A3T7_feature_class, x_coords, y_coords)
+    #Issue handling if there is an existing Feature Dataset in the geodatabase with the same name. 
+    #Alternatively, this section can be removed and acrpy.env.overwriteOutput can be set to True
+    while True:
+        if arcpy.Exists(A3T7_feature_class):
+            print("Warning! Renaming Feature Class. Advise removing previous versions of the A3Team7 file(s) from the geodatabase and Shapefile folder")
+            A3T7_feature_class = A3T7_feature_class + "_copy"
+        else:
+            break
 
-#Adding the Point Feature Class to the Map
-class_to_add = output_gdbALT + A3T7_feature_class
-print(class_to_add)
-Map1.addDataFromPath(class_to_add)
+    # XYTable to Point - Converting the Table to a Point Feature Class
+    # Without setting the optional spatial reference parameter, spatial reference will be WGS1984 by default
+    x_coords = "Longitude"
+    y_coords = "Latitude"
+    arcpy.management.XYTableToPoint(aFile, A3T7_feature_class, x_coords, y_coords)
 
-# #Converting and Exporting a FeatureClass for dissemination, then adding it to the Map
-arcpy.FeatureClassToShapefile_conversion(A3T7_feature_class, cwd + r"\ShapeFileDestination")
-A3T7ShapeFilePath = cwd + "\\ShapeFileDestination\\"
-A3T7ShapeFile = A3T7_feature_class
-FileExtension = ".shp"
-ShapeFileCombo = A3T7ShapeFilePath + A3T7ShapeFile + FileExtension
-print(ShapeFileCombo)
-Map1.addDataFromPath(ShapeFileCombo)
+    #Adding the Point Feature Class to the Map
+    class_to_add = output_gdbALT + A3T7_feature_class
+    print(class_to_add)
+    Map1.addDataFromPath(class_to_add)
 
-#'Clean up and turn off the lights' - prevent ArcGIS project overwritting or file locks
-aprx.saveACopy(cwd + r"\A3Team7ProjectCOPY.aprx")
-del aprx
+    # #Converting and Exporting a FeatureClass for dissemination, then adding it to the Map
+    arcpy.FeatureClassToShapefile_conversion(A3T7_feature_class, cwd + r"\ShapeFileDestination")
+    A3T7ShapeFilePath = cwd + "\\ShapeFileDestination\\"
+    A3T7ShapeFile = A3T7_feature_class
+    FileExtension = ".shp"
+    ShapeFileCombo = A3T7ShapeFilePath + A3T7ShapeFile + FileExtension
+    Map1.addDataFromPath(ShapeFileCombo)
+
+    #'Clean up and turn off the lights' - prevent ArcGIS project overwritting or file locks
+    aprx.saveACopy(cwd + r"\A3Team7ProjectCOPY.aprx")
+    del aprx
+
+if __name__ == '__main__':
+    main()
