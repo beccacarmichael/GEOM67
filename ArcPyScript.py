@@ -3,7 +3,12 @@
 #Support: n/a
 #Notes: This section imports the output table with the calculations provided into
 #an existing ArcGIS Project Geodatabase, converts it into a point feature class, adds
-#the feature class to the map, and exports the results as a shapefile for dissimination
+#the feature class to the map, and exports the results as a shapefile for dissimination. This section 
+# will make a new "copy" of the feature class and shapefile each time it is run and save as in a copy of the ArcGIS Project.
+# It is recommended best practice that the user removes or renames previous versions of the feature classes / shapefiles between
+# each run. 
+
+#Assumption: Geospatial data will be provided in WGS 1984 Geocordinate System. 
 #Sources: Support from Karen Whillians (professor), Esri Website
 #https://pro.arcgis.com/en/pro-app/latest/tool-reference/data-management/xy-table-to-point.htm
 #https://pro.arcgis.com/en/pro-app/latest/arcpy/mapping/map-class.htm
