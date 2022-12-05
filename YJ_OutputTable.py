@@ -2,22 +2,21 @@ import csv
 ################### OUTPUT TABLE MODULE ###################
 #EXPORT relevant variables as individual columns in a single row, with headers, in a.csv
 ################### OUTPUT TABLE MODULE ###################
+import math
+
+def bheight(l_titude):
+    dayy=int(input("enter day:"))
+    buildingdistance=int(input("buulding d: "))
+    adjacentbuildingheight=int(input("buildingheight:)"))
+    declinationangle=-23.45*math.cos((math.pi/180)*(360/365)*(dayy+10))
+    elevationangle=90-l_titude+declinationangle
+    minimumheight=adjacentbuildingheight-(math.tan((math.pi/180)*elevationangle))*buildingdistance
+    return minimumheight
+
+################### OUTPUT TABLE MODULE ###################
+#EXPORT relevant variables as individual columns in a single row, with headers, in a.csv
+################### OUTPUT TABLE MODULE ###################
 def main():
-    cityname_list=[] #create empty list for each entry
-    latitude_list=[]
-    longitude_list=[]
-    # DayOfFocus=[]
-    DayOfFocusHeight=[]
-    # DayofFocusHour=[]
-    # WinterHeight=[]
-    # SummerHeight=[]
-    # AnnualTotalSunlightHour=[]
-    # AnnualAvgSunlightHour=[]
-    # AnnualMinHour=[]
-    # AnnualMaxHour=[]
-
-
-   def main():
     cityname=[] #create empty list for each entry
     latitude=[]
     longitude=[]
