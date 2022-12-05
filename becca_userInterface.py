@@ -1,6 +1,6 @@
 ################### USER INTERFACE MODULE ##########################
 #Lead: Becca C & Yingjia Y 
-#Support: N/A 
+#Support: N/AS 
 #Notes: This module includes all of the prompts for the user inputs and 
 # outputs for the program. It is intended to be imported into the main 
 # file. 
@@ -213,10 +213,10 @@ def getUserInputs ():
         DayVal_list.append(DayVal)
 
         # Let them break the loop if they want, or keep going
-        #end = input("Do you want to stop entering values (Y/N)? ") 
-        #print()
-        #if end.upper() == 'Y' :
-        #    break
+        end = input("Do you want to stop entering values (Y/N)? ") 
+        print()
+        if end.upper() == 'Y' :
+            break
 
 
     ### get .gbd options ###
