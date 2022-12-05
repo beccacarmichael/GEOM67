@@ -1,5 +1,6 @@
 import becca_userInterface
-import calculations
+import SunlightHourCalculator 
+import minimum_height
 import ArcPyScript
 import YJ_OutputTable
 
