@@ -1,6 +1,6 @@
 import csv
-cities = {"calgary": [1,1]}  # placeholder for when we have the actual list of city coordinates imported
 
+# message for the program to print at the beginning
 startMessage = """POTENTIAL SUNLIGHT EXPOSURE CALCULATOR FOR APARTMENT HUNTERS
 
 This program will calculate statistical data about potential sunlight for a city/ area in Canada, based off spatial data, as well as the optical height (floor) of a dwelling (apartment).
@@ -13,6 +13,11 @@ with open("latlong.csv", newline="") as fo:
 
 
 def getInputForAnApartment ():
+    '''Get all of the inputs for a single apartment.  There are three parts:
+    Location - latitude, longitude, city_name. city_name is blank if they enter coordinates directly.  If they use a city name, they also enter the province and that gets included.
+    Other Building - building_height, building_distance.  Both floats.
+    Date - DayVal, DayOfFocus.  DayVal is an int and tells you how many days into the year the date is.  DayOfFocus is a string like "Feb 1"
+    '''
     ### Some constants that are used in this function
     daysInEachMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
     monthNumberFromEnglishName = {
@@ -68,15 +73,20 @@ def getInputForAnApartment ():
 
         return latitude, longitude
 
+    # Get inputs inside a loop so that user can try again if they enter invalid info
     while (latitude is None or longitude is None):
+        # Ask them how they want to enter the info
         locationType = input("Would you like to select from a list of Canadian cities, or provide the latitude/longitude coordinates? (city/coords): ")
+        
+        # If they want to enter coordinates directly, just do that
         if locationType == "coords":
             latitude, longitude = getLatLong()
 
+        # If they want to enter a city name, we check if we have it in the list, and if not then they have to enter coordinates
         elif locationType == "city":
-            province = input("Please enter the Canadian province/territory the prospective apartment is located in: ")
             city_name = input("Please enter the Canadian city the prospective apartment is located in: ")
             city_name = city_name.upper()  # make the city name uppercase because the list of cities is uppercase
+            province = input("Please enter the Canadian province/territory the prospective apartment is located in: ")
             foundCity = False
             for city_data in city_reference_list:
                 if city_name == city_data[0]:
@@ -91,22 +101,31 @@ def getInputForAnApartment ():
             
             city_name = city_name + ", " + province.upper()  # add the province name to the city for display purposes
 
+        # If they enter something else, we ask them to try again
         else:
             print("Please reply with 'city' or 'coords' to decide how to input the location\n")
 
 
-    ### Get other building data ###
-    askUserForInput = True
-    while(askUserForInput):
+    ### Get data for other building ###
+    building_height = None
+    building_distance = None
+
+    # Get inputs inside a loop so that user can try again if they enter invalid info
+    while(building_distance is None or building_height is None):
         building_height = input("Please enter the height of the closest south facing adjacent building, in meters: ")
         building_distance = input("Please enter the distance between the two buildings in meters: ")
 
+        # Try to make them numbers
         try:
             building_height = float(building_height)
             building_distance = float(building_distance)
-            # If the two lines above are successful, the values are now numbers and we don't need to ask again for input
-            askUserForInput = False
+
+        # If the inputs can't be made into numbers, tell the user to try again
         except ValueError:
+            # The while loop to get the info keeps running if the values are None,
+            #   so if we couldn't make them numbers, make them None so that the loop will go again and the user can try entering the values again
+            building_height = None
+            building_distance = None
             print("Please enter both the building height and building distance as numeric values in meters.  Try again:\n")
 
 
@@ -125,7 +144,7 @@ def getInputForAnApartment ():
 
             # If we recognize the text as the name of a month, convert it to a number
             if user_FocusMonth in monthNumberFromEnglishName.keys():
-                user_FocusMonth = monthNumberFromEnglishName[user_FocusMonth] 
+                user_FocusMonth = monthNumberFromEnglishName[user_FocusMonth]
 
             # otherwise, its hopefully a number
             else:
@@ -153,29 +172,36 @@ def getInputForAnApartment ():
     DayOfFocus = monthNames[user_FocusMonth - 1] + " " + str(user_FocusDay)
 
     ### return all the inputs for a single location ###
-    return DayOfFocus, DayVal, latitude, longitude, city_name, building_height, building_distance
+    return latitude, longitude, city_name, building_height, building_distance, DayOfFocus, DayVal
 
 
 def getUserInputs ():
+    '''Get inputs for as many apartments as the user wants, using the "getInputForAnApartment" function.
+    Also ask them if they want a .gbd and if they do, get the necessary information for it'''
 
     ### Get all the values for the locations ###
-    DayOfFocus_list = []
-    DayVal_list = []
+    # Empty lists to hold the inputs
     latitude_list = []
     longitude_list = []
     city_name_list = []
     building_height_list = []
     building_distance_list = []
+    DayOfFocus_list = []
+    DayVal_list = []
 
+    # Get inputs for apartments until they decide to stop entering values
     while (True):
-        DayOfFocus, DayVal, latitude, longitude, city_name, building_height, building_distance = getInputForAnApartment()
-        DayOfFocus_list.append(DayOfFocus)
-        DayVal_list.append(DayVal)
+        # Get inputs for an apartment
+        latitude, longitude, city_name, building_height, building_distance, DayOfFocus, DayVal = getInputForAnApartment()
         latitude_list.append(latitude)
         longitude_list.append(longitude)
         city_name_list.append(city_name)
         building_height_list.append(building_height)
-        building_distance_list.append(DayOfFocus)
+        building_distance_list.append(building_distance)
+        DayOfFocus_list.append(DayOfFocus)
+        DayVal_list.append(DayVal)
+
+        # Let them break the loop if they want, or keep going
         end = input("Do you want to stop entering values (Y/N)? ") 
         print()
         if end.upper() == 'Y' :
@@ -209,6 +235,38 @@ def getUserInputs ():
         print("A .gbd file will not be generated")
 
     return user_wants_gbd, user_GISProjectPath, user_GISProjectName, user_GISMapName, user_FeatureName, DayOfFocus_list, DayVal_list, latitude_list, longitude_list, city_name_list, building_height_list, building_distance_list
+    
+
+def displayResultsForAnApartment (latitude, longitude, city_name, DayOfFocus, FocusDay_MinimumHeight, SummSolstice_MinimumHeight, WintSolstice_MinimumHeight, FocusDay_SunlightHours, SummSolstice_SunlightHours, WintSolstice_SunlightHours):
+    '''Output the results for an apartment in three parts: The apartment info, minimum height results, and hours of sunlight results'''
+    print("\n------------------------------------------------------------------------------------------------------------")
+
+    # First part - apartment info
+    print("\nThe results for the prospective apartment are as follows:")
+    print("    Latitude:       ", latitude)
+    print("    Longitude:      ", longitude)
+    print("    City:           ", city_name)
+    print("    Date:           ", DayOfFocus)
+
+    # Second part - minimum height results
+    print("\nTo get at least 1 hour of sunlight, the minimum height (in meters) of the prospective apartment must be:")
+    print("    On your chosen date:         ", FocusDay_MinimumHeight)
+    print("    On the winter solstice:      ", WintSolstice_MinimumHeight)
+    print("    On the summer solstice:      ", SummSolstice_MinimumHeight)
+
+    # Third part - hours of sunlight results
+    print("\nThe potential hours of sunlight for " + city_name + " is:")
+    print("    On your chosen date:         ", FocusDay_SunlightHours)
+    print("    On the winter solstice:      ", WintSolstice_SunlightHours)
+    print("    On the summer solstice:      ", SummSolstice_SunlightHours)
+
+
+def displayResults (latitude_list, longitude_list, city_name_list, DayOfFocus_list, FocusDay_MinimumHeight_list, SummSolstice_MinimumHeight_list, WintSolstice_MinimumHeight_list, FocusDay_SunlightHours_list, SummSolstice_SunlightHours_list, WintSolstice_SunlightHours_list):
+    '''Display the results for a list of apartments, by repeatedly using the "displayResultsForAnApartment" function'''
+    for (latitude, longitude, city_name, DayOfFocus, FocusDay_MinimumHeight, SummSolstice_MinimumHeight, WintSolstice_MinimumHeight, FocusDay_SunlightHours, SummSolstice_SunlightHours, WintSolstice_SunlightHours) in zip(latitude_list, longitude_list, city_name_list, DayOfFocus_list, FocusDay_MinimumHeight_list, SummSolstice_MinimumHeight_list, WintSolstice_MinimumHeight_list, FocusDay_SunlightHours_list, SummSolstice_SunlightHours_list, WintSolstice_SunlightHours_list):
+        displayResultsForAnApartment(latitude, longitude, city_name, DayOfFocus, FocusDay_MinimumHeight, SummSolstice_MinimumHeight, WintSolstice_MinimumHeight, FocusDay_SunlightHours, SummSolstice_SunlightHours, WintSolstice_SunlightHours)
+        
+    print("\n------------------------------------------------------------------------------------------------------------\n")
     
 
 ### This is just for testing. When the file is imported this code will not run ###
