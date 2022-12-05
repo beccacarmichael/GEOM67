@@ -213,11 +213,24 @@ def getUserInputs ():
         DayVal_list.append(DayVal)
 
         # Let them break the loop if they want, or keep going
+<<<<<<< HEAD
         end = input("Do you want to stop entering values (Y/N)? ") 
         print()
         if end.upper() == 'Y' :
             break
-
+   
+=======
+        #end = input("Do you want to stop entering values (Y/N)? ") 
+        #print()
+        #if end.upper() == 'Y' :
+        #    break
+>>>>>>> c6120dc4fe975b7351131e6f43e43ff83a90f31c
+    myheader=['CityName','Latitude','Longitude','DayOfFocus','DayOfFocusHeight','DayofFocusHour','WinterHeight','SummerHeight','WinterHeight','AnnualTotalSunlightHour','AnnualAvgSunlightHour','AnnualMinHour','AnnualMaxHour']
+    with open('output.csv','w',newline='') as newfile:
+        writer=csv.writer(newfile)
+        writer.writerow(myheader)
+        for i in range(len(latitude_list)):
+            writer.writerow([city_name_list[i],latitude_list[i],longitude_list[i],DayOfFocus_list[i],building_height_list[i],building_distance_list[i]])
 
     ### get .gbd options ###
     # default values
