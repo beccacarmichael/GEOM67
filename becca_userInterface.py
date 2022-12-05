@@ -1,3 +1,13 @@
+################### USER INTERFACE MODULE ##########################
+#Lead: Becca C 
+#Support: Yingjia - latlong CSV file 
+#Notes: This module includes all of the prompts for the user inputs and 
+# outputs for the program. It is intended to be imported into the main 
+# file. 
+#Sources: N/A
+####################################################################
+
+
 import csv
 
 # message for the program to print at the beginning
