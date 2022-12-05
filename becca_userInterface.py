@@ -1,6 +1,6 @@
 ################### USER INTERFACE MODULE ##########################
-#Lead: Becca C 
-#Support: Yingjia - latlong CSV file 
+#Lead: Becca C & Yingjia Y 
+#Support: N/A 
 #Notes: This module includes all of the prompts for the user inputs and 
 # outputs for the program. It is intended to be imported into the main 
 # file. 
@@ -62,19 +62,19 @@ def getInputForAnApartment ():
     print("Please answer the following questions with information regarding the prospective apartment:")
 
     ### Get location data for apartment ###
-    latitude = None
-    longitude = None
+    user_Latitude = None
+    user_Longitude = None
     city_name = ""
 
     # This little function prompts the user for the latitude and longitude and returns them as floats, or returns them as "None" and asks the user to try again, if they can't be cast to floats
     def getLatLong ():
-        latitude = input("Please enter the decimal latitude: ")
-        longitude = input("Please enter the decimal longitude: ")
+        user_Latitude = input("Please enter the decimal latitude: ")
+        user_Longitude = input("Please enter the decimal longitude: ")
 
         # Make them floats.  If it doesn't work, return None for both values.
         try:
-            latitude = float(latitude)
-            longitude = float(longitude)
+            user_Latitude = float(user_Latitude)
+            user_Longitude = float(user_Longitude)
         except ValueError:
             print("Please enter both the latitude and longitude as numeric values (use decimal units).  Try again:\n")
 
@@ -82,35 +82,35 @@ def getInputForAnApartment ():
             #   so if we couldn't make them numbers, make them None so that the loop will go again and the user can try entering the values again
             return None, None
 
-        return latitude, longitude
+        return user_Latitude, user_Longitude
 
     # Get inputs inside a loop so that user can try again if they enter invalid info
-    while (latitude is None or longitude is None):
+    while (user_Latitude is None or user_Longitude is None):
         # Ask them how they want to enter the info
         locationType = input("Would you like to select from a list of Canadian cities, or provide the latitude/longitude coordinates? (city/coords): ")
         
         # If they want to enter coordinates directly, just do that
         if locationType == "coords":
-            latitude, longitude = getLatLong()
+            user_Latitude, user_Longitude = getLatLong()
 
         # If they want to enter a city name, we check if we have it in the list, and if not then they have to enter coordinates
         elif locationType == "city":
             city_name = input("Please enter the Canadian city the prospective apartment is located in: ")
             city_name = city_name.upper()  # make the city name uppercase because the list of cities is uppercase
-            province = input("Please enter the Canadian province/territory the prospective apartment is located in: ")
+            #######province = input("Please enter the Canadian province/territory the prospective apartment is located in: ")
             foundCity = False
             for city_data in city_reference_list:
                 if city_name == city_data[0]:
-                    latitude = float(city_data[1])
-                    longitude = float(city_data[2])
+                    user_Latitude = float(city_data[1])
+                    user_Longitude = float(city_data[2])
                     foundCity = True
                     break
             
             if not foundCity:
                 print("That city isn’t in the system")
-                latitude, longitude = getLatLong()
+                user_Latitude, user_Longitude = getLatLong()
             
-            city_name = city_name + ", " + province.upper()  # add the province name to the city for display purposes
+            city_name = city_name + ", " ##+ province.upper()  # add the province name to the city for display purposes
 
         # If they enter something else, we ask them to try again
         else:
@@ -183,7 +183,7 @@ def getInputForAnApartment ():
     DayOfFocus = monthNames[user_FocusMonth - 1] + " " + str(user_FocusDay)
 
     ### return all the inputs for a single location ###
-    return latitude, longitude, city_name, building_height, building_distance, DayOfFocus, DayVal
+    return user_Latitude, user_Longitude, city_name, building_height, building_distance, DayOfFocus, DayVal
 
 
 def getUserInputs ():
@@ -203,9 +203,9 @@ def getUserInputs ():
     # Get inputs for apartments until they decide to stop entering values
     while (True):
         # Get inputs for an apartment
-        latitude, longitude, city_name, building_height, building_distance, DayOfFocus, DayVal = getInputForAnApartment()
-        latitude_list.append(latitude)
-        longitude_list.append(longitude)
+        user_Latitude, user_Longitude, city_name, building_height, building_distance, DayOfFocus, DayVal = getInputForAnApartment()
+        latitude_list.append(user_Latitude)
+        longitude_list.append(user_Longitude)
         city_name_list.append(city_name)
         building_height_list.append(building_height)
         building_distance_list.append(building_distance)
@@ -213,10 +213,10 @@ def getUserInputs ():
         DayVal_list.append(DayVal)
 
         # Let them break the loop if they want, or keep going
-        end = input("Do you want to stop entering values (Y/N)? ") 
-        print()
-        if end.upper() == 'Y' :
-            break
+        #end = input("Do you want to stop entering values (Y/N)? ") 
+        #print()
+        #if end.upper() == 'Y' :
+        #    break
 
 
     ### get .gbd options ###
@@ -248,14 +248,14 @@ def getUserInputs ():
     return user_wants_gbd, user_GISProjectPath, user_GISProjectName, user_GISMapName, user_FeatureName, DayOfFocus_list, DayVal_list, latitude_list, longitude_list, city_name_list, building_height_list, building_distance_list
     
 
-def displayResultsForAnApartment (latitude, longitude, city_name, DayOfFocus, FocusDay_MinimumHeight, SummSolstice_MinimumHeight, WintSolstice_MinimumHeight, FocusDay_SunlightHours, SummSolstice_SunlightHours, WintSolstice_SunlightHours):
+def displayResultsForAnApartment (user_Latitude, user_Longitude, city_name, DayOfFocus, FocusDay_MinimumHeight, SummSolstice_MinimumHeight, WintSolstice_MinimumHeight, FocusDay_SunlightHours, SummSolstice_SunlightHours, WintSolstice_SunlightHours):
     '''Output the results for an apartment in three parts: The apartment info, minimum height results, and hours of sunlight results'''
     print("\n------------------------------------------------------------------------------------------------------------")
 
     # First part - apartment info
     print("\nThe results for the prospective apartment are as follows:")
-    print("    Latitude:       ", latitude)
-    print("    Longitude:      ", longitude)
+    print("    Latitude:       ", user_Latitude)
+    print("    Longitude:      ", user_Longitude)
     print("    City:           ", city_name)
     print("    Date:           ", DayOfFocus)
 
@@ -274,8 +274,8 @@ def displayResultsForAnApartment (latitude, longitude, city_name, DayOfFocus, Fo
 
 def displayResults (latitude_list, longitude_list, city_name_list, DayOfFocus_list, FocusDay_MinimumHeight_list, SummSolstice_MinimumHeight_list, WintSolstice_MinimumHeight_list, FocusDay_SunlightHours_list, SummSolstice_SunlightHours_list, WintSolstice_SunlightHours_list):
     '''Display the results for a list of apartments, by repeatedly using the "displayResultsForAnApartment" function'''
-    for (latitude, longitude, city_name, DayOfFocus, FocusDay_MinimumHeight, SummSolstice_MinimumHeight, WintSolstice_MinimumHeight, FocusDay_SunlightHours, SummSolstice_SunlightHours, WintSolstice_SunlightHours) in zip(latitude_list, longitude_list, city_name_list, DayOfFocus_list, FocusDay_MinimumHeight_list, SummSolstice_MinimumHeight_list, WintSolstice_MinimumHeight_list, FocusDay_SunlightHours_list, SummSolstice_SunlightHours_list, WintSolstice_SunlightHours_list):
-        displayResultsForAnApartment(latitude, longitude, city_name, DayOfFocus, FocusDay_MinimumHeight, SummSolstice_MinimumHeight, WintSolstice_MinimumHeight, FocusDay_SunlightHours, SummSolstice_SunlightHours, WintSolstice_SunlightHours)
+    for (user_Latitude, user_Longitude, city_name, DayOfFocus, FocusDay_MinimumHeight, SummSolstice_MinimumHeight, WintSolstice_MinimumHeight, FocusDay_SunlightHours, SummSolstice_SunlightHours, WintSolstice_SunlightHours) in zip(latitude_list, longitude_list, city_name_list, DayOfFocus_list, FocusDay_MinimumHeight_list, SummSolstice_MinimumHeight_list, WintSolstice_MinimumHeight_list, FocusDay_SunlightHours_list, SummSolstice_SunlightHours_list, WintSolstice_SunlightHours_list):
+        displayResultsForAnApartment(user_Latitude, user_Longitude, city_name, DayOfFocus, FocusDay_MinimumHeight, SummSolstice_MinimumHeight, WintSolstice_MinimumHeight, FocusDay_SunlightHours, SummSolstice_SunlightHours, WintSolstice_SunlightHours)
         
     print("\n------------------------------------------------------------------------------------------------------------\n")
     
