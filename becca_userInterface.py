@@ -210,12 +210,11 @@ def getUserInputs ():
         DayOfFocus_list.append(DayOfFocus)
         DayVal_list.append(DayVal)
 
-        # Let them break the loop if they want, or keep going
+        #Let them break the loop if they want, or keep going
         end = input("Do you want to stop entering values (Y/N)? ") 
         print()
         if end.upper() == 'Y' :
-            break
-   
+           break
     myheader=['CityName','Latitude','Longitude','DayOfFocus','DayOfFocusHeight','DayofFocusHour','WinterHeight','SummerHeight','WinterHeight','AnnualTotalSunlightHour','AnnualAvgSunlightHour','AnnualMinHour','AnnualMaxHour']
     with open('output.csv','w',newline='') as newfile:
         writer=csv.writer(newfile)
