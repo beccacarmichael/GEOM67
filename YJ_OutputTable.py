@@ -7,7 +7,7 @@ def main():
     latitude_list=[]
     longitude_list=[]
     # DayOfFocus=[]
-    # DayOfFocusHeight=[]
+    DayOfFocusHeight=[]
     # DayofFocusHour=[]
     # WinterHeight=[]
     # SummerHeight=[]
@@ -39,18 +39,22 @@ def main():
                 user_Longitude=input("not found, enter long: ")
                 longitude_list.append(user_Longitude)#append input_longitude to longitude list
     
-            #print(cityname,latitude,longitude)
+             for index in range(1):
+                filelatitude = latitude[index]        
+                mheight=bheight(filelatitude)
+                DayOfFocusHeight.append(mheight)  
         end = input("Do you want to stop entering values (Y/N)? ") 
         print()
         if  end.upper() == 'Y' :
             break
 
-    alist=zip(cityname_list,latitude_list,longitude_list) # combine small lists into a big list
+
     myheader=['City_Name','Latitude','Longitude','DayOfFocus','DayOfFocusHeight','DayofFocusHour','WinterHeight','SummerHeight','AnnualTotalSunlightHour','AnnualAvgSunlightHour','AnnualMinHour','AnnualMaxHour']
     with open('output.csv','w',newline='') as newfile: #csv file name can be changed later, when we finalize it
         writer=csv.writer(newfile)
         writer.writerow(myheader)
-        writer.writerows(alist)
+        for i in range(len(latitude)):
+            writer.writerow([cityname[i],latitude[i],longitude[i],DayOfFocusHeight[i]])
 
 if __name__ == '__main__':
     main()
