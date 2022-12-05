@@ -8,6 +8,7 @@
 ####################################################################
 
 
+#import the latlong/ city list 
 import csv
 
 # message for the program to print at the beginning
