@@ -1,6 +1,6 @@
 ################### USER INTERFACE MODULE ##########################
 #Lead: Becca C & Yingjia Y 
-#Support: N/A 
+#Support: N/AS 
 #Notes: This module includes all of the prompts for the user inputs and 
 # outputs for the program. It is intended to be imported into the main 
 # file. 

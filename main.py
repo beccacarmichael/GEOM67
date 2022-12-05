@@ -1,3 +1,18 @@
+#################################################################################################
+
+
+
+###################Main Program ##########################
+#ApartmentSeekerSunlightCalculator.py
+#Lead: Becca 
+#Support: Adrian Koornneef
+#Notes: This section imports and executes the various necessary parts of the program. 
+#Sources: 
+#########################################################
+
+
+
+
 import becca_userInterface
 import SunlightHourCalculator 
 import minimum_height
@@ -49,3 +64,7 @@ for (DayOfFocus, DayVal, latitude, longitude, city_name, building_height, buildi
 
 # Display the results to the user
 becca_userInterface.displayResults(latitude_list, longitude_list, city_name_list, DayOfFocus_list, FocusDay_MinimumHeight_list, SummSolstice_MinimumHeight_list, WintSolstice_MinimumHeight_list, FocusDay_SunlightHours_list, SummSolstice_SunlightHours_list, WintSolstice_SunlightHours_list)
+
+print()
+print("-----------------------------------------------------------------------------------------")
+print("Program complete. Please run again if you wish to complete for another location.")
