@@ -9,7 +9,7 @@ def sunlighthour ():
         
         CalculationsList=[]
         for d in range(1,366,dayVal):
-            #this is the sunlight hour calculation
+            #this is the sunlight hour calculation, same as def SunlightCalculator()
             sunlighthour=2*((1/15)*(180/math.pi)*(math.acos(((math.pi/180)*(-math.tan(float(latitude)*(math.pi/180))*((math.tan(((23.44*(math.pi/180))*((math.sin(((360/365)*(math.pi/180)*(d+284))))))))))))))
             sunlighthour=round(float(sunlighthour),2)
             CalculationsList.append(sunlighthour)
