@@ -1,5 +1,6 @@
 import math
 
+#this provides Sunlight Hours for 1 day
 
 def SunlightCalculator(DayVal,user_Latitude):
 
@@ -8,7 +9,7 @@ def SunlightCalculator(DayVal,user_Latitude):
 
     return HoursofSunlight
 
-print('this is a test value', SunlightCalculator(1,21))
+print('this is a day of focus test', SunlightCalculator(32,70))
 
 
 # DayVal = 32
