@@ -1,2 +1,3 @@
 CityName,Latitude,Longitude,DayOfFocus,DayOfFocusHeight,DayofFocusHour,WinterHeight,SummerHeight,WinterHeight,AnnualTotalSunlightHour,AnnualAvgSunlightHour,AnnualMinHour,AnnualMaxHour
-"TORONTO, ON",43.69997988,-79.42002079,30.0,20.0,Mar 6,65
+"TORONTO, ",43.69997988,-79.42002079,Mar 6,5.0,4.0
+"5, ",50.0,60.0,Mar 6,5.0,4.0
