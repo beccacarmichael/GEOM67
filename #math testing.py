@@ -1,7 +1,7 @@
 #math testing
 import math
 
-latitude = 43
+latitude = 60
 
 # attempt 1, values are not correct
 
