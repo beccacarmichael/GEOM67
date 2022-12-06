@@ -54,7 +54,7 @@ Inputs required from user:
     - Height of southern influencing building
     - Distance of southern influencing building from desired apartment location
     - Confirmation when the user wishes to end adding apartment locations
-    - Confirmation if the user would like geospatial project compelte
+    - Confirmation if the user would like geospatial project complete
 #################################################################
 
 #################### Outputs ###################################
