@@ -94,6 +94,9 @@ Additional contributions not identified in individual code section:
     -Honsberg, C. B., & Bowden, S. G. (2019). Elevation Angle | PVEducation. https://www.pveducation.org/pvcdrom/properties-of-sunlight/elevation-angle
     -Honsberg, C. B., & Bowden, S. G. (2019). Declination Angle | PVEducation. https://www.pveducation.org/pvcdrom/properties-of-sunlight/declination-angle
 -Support from Karen Whillians (professor) 
+-latlong.csv reference website:
+    -https://www.latlong.net/category/cities-40-15.html
+    -https://www.get-direction.com/cities-lat-long.html?country=canada-2&offset=435
 -Esri Website:
     -https://pro.arcgis.com/en/pro-app/latest/tool-reference/data-management/xy-table-to-point.htm
     -https://pro.arcgis.com/en/pro-app/latest/arcpy/mapping/map-class.htm
