@@ -224,7 +224,7 @@ def sunlighthourstatistics (user_Latitude):
         
     CalculationsList=[]
     for d in range(1,365):
-        sunlighthour=2*2*(1/15)*(180/math.pi)*math.acos((-math.tan((math.pi/180)*43.6))*(math.tan((math.pi/180)*23.44*math.sin((360/365)*(d+284)*(math.pi/180)))))
+        sunlighthour=2*(1/15)*(180/math.pi)*math.acos((-math.tan((math.pi/180)*43.6))*(math.tan((math.pi/180)*23.44*math.sin((360/365)*(d+284)*(math.pi/180)))))
         CalculationsList.append(sunlighthour)
 
     #min,max,avg,sum
