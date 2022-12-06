@@ -264,7 +264,7 @@ print("Total Yearly Hours of Sunlight",sunlighthourstatistics(76)[3])
 #Sources: 
 ####################################################################
 
-def displayResultsForAnApartment (user_Latitude, user_Longitude, city_name, DayOfFocus, FocusDay_MinimumHeight, SummSolstice_MinimumHeight, WintSolstice_MinimumHeight, FocusDay_SunlightHours, SummSolstice_SunlightHours, WintSolstice_SunlightHours):
+def displayResultsForAnApartment (user_Latitude, user_Longitude, city_name, DayOfFocus, FocusDay_MinimumHeight, SummSolstice_MinimumHeight, WintSolstice_MinimumHeight, FocusDay_SunlightHours, AnnualTotalSunlight, AnnualAvgSunlight, AnnualMin, AnnualMax):
     '''Output the results for an apartment in three parts: The apartment info, minimum height results, and hours of sunlight results'''
     print("\n------------------------------------------------------------------------------------------------------------")
 
@@ -277,21 +277,22 @@ def displayResultsForAnApartment (user_Latitude, user_Longitude, city_name, DayO
 
     # Second part - minimum height results
     print("\nTo get at least 1 hour of sunlight, the minimum height (in meters) of the prospective apartment must be:")
-    print("    On your chosen date:         ", FocusDay_MinimumHeight)
-    print("    On the winter solstice:      ", WintSolstice_MinimumHeight)
-    print("    On the summer solstice:      ", SummSolstice_MinimumHeight)
+    print("    On your chosen date:           ", FocusDay_MinimumHeight)
+    print("    On the winter solstice:        ", WintSolstice_MinimumHeight)
+    print("    On the summer solstice:        ", SummSolstice_MinimumHeight)
 
     # Third part - hours of sunlight results
     print("\nThe potential hours of sunlight for " + city_name + " is:")
-    print("    On your chosen date:         ", FocusDay_SunlightHours)
-    print("    On the winter solstice:      ", WintSolstice_SunlightHours)
-    print("    On the summer solstice:      ", SummSolstice_SunlightHours)
+    print("    On your chosen date:           ", FocusDay_SunlightHours)
+    print("    On the day with the most sun:  ", AnnualMax)
+    print("    On the day with the least sun: ", AnnualMin)
+    print("    On average in a day:           ", AnnualAvgSunlight)
+    print("    In total throughout the year:  ", AnnualTotalSunlight)
 
-
-def displayResults (latitude_list, longitude_list, city_name_list, DayOfFocus_list, FocusDay_MinimumHeight_list, SummSolstice_MinimumHeight_list, WintSolstice_MinimumHeight_list, FocusDay_SunlightHours_list, SummSolstice_SunlightHours_list, WintSolstice_SunlightHours_list):
+def displayResults (latitude_list, longitude_list, city_name_list, DayOfFocus_list, FocusDay_MinimumHeight_list, SummSolstice_MinimumHeight_list, WintSolstice_MinimumHeight_list, FocusDay_SunlightHours_list, AnnualTotalSunlightHour, AnnualAvgSunlightHour, AnnualMinHour, AnnualMaxHour):
     '''Display the results for a list of apartments, by repeatedly using the "displayResultsForAnApartment" function'''
-    for (user_Latitude, user_Longitude, city_name, DayOfFocus, FocusDay_MinimumHeight, SummSolstice_MinimumHeight, WintSolstice_MinimumHeight, FocusDay_SunlightHours, SummSolstice_SunlightHours, WintSolstice_SunlightHours) in zip(latitude_list, longitude_list, city_name_list, DayOfFocus_list, FocusDay_MinimumHeight_list, SummSolstice_MinimumHeight_list, WintSolstice_MinimumHeight_list, FocusDay_SunlightHours_list, SummSolstice_SunlightHours_list, WintSolstice_SunlightHours_list):
-        displayResultsForAnApartment(user_Latitude, user_Longitude, city_name, DayOfFocus, FocusDay_MinimumHeight, SummSolstice_MinimumHeight, WintSolstice_MinimumHeight, FocusDay_SunlightHours, SummSolstice_SunlightHours, WintSolstice_SunlightHours)
+    for (user_Latitude, user_Longitude, city_name, DayOfFocus, FocusDay_MinimumHeight, SummSolstice_MinimumHeight, WintSolstice_MinimumHeight, FocusDay_SunlightHours, AnnualTotalSunlight, AnnualAvgSunlight, AnnualMin, AnnualMax) in zip(latitude_list, longitude_list, city_name_list, DayOfFocus_list, FocusDay_MinimumHeight_list, SummSolstice_MinimumHeight_list, WintSolstice_MinimumHeight_list, FocusDay_SunlightHours_list, AnnualTotalSunlightHour, AnnualAvgSunlightHour, AnnualMinHour, AnnualMaxHour):
+        displayResultsForAnApartment(user_Latitude, user_Longitude, city_name, DayOfFocus, FocusDay_MinimumHeight, SummSolstice_MinimumHeight, WintSolstice_MinimumHeight, FocusDay_SunlightHours, AnnualTotalSunlight, AnnualAvgSunlight, AnnualMin, AnnualMax)
         
     print("\n------------------------------------------------------------------------------------------------------------\n")
 
@@ -311,7 +312,6 @@ def main():
     This will aid apartment hunters in preventing selecting an apartment with less/ no sunlight exposure due to other buildings.
     """
     print(startMessage)
-
 
 
     ### Get all the values for the locations ###
@@ -392,11 +392,11 @@ def main():
         FocusDay_MinHeight = minimumheight(user_LatitudeTemp, building_distanceTemp, building_heightTemp, DayValTemp)
         DayOfFocusHeight.append(FocusDay_MinHeight)
         
-        #Winter Solistice Height
+        #Winter Solstice Height
         WintSol_MinHeight = minimumheight(user_LatitudeTemp, building_distanceTemp, building_heightTemp, WintSolstice_DayVal)
         WinterHeight.append(WintSol_MinHeight)
         
-        #Summer Solistice Height
+        #Summer Solstice Height
         SummSol_MinHeight = minimumheight(user_LatitudeTemp, building_distanceTemp, building_heightTemp, SummSolstice_DayVal)
         SummerHeight.append(SummSol_MinHeight)
         
@@ -414,7 +414,6 @@ def main():
         sumhour = sunlighthourstatistics(user_LatitudeTemp)[3]
         AnnualTotalSunlightHour.append(sumhour)
 
-        #SunlightCalculator(DayVal,user_Latitude)
 
     myheader=['CityName','Latitude','Longitude','DayOfFocus','DayOfFocusHeight','DayofFocusHour','WinterHeight','SummerHeight','AnnualTotalSunlightHour','AnnualAvgSunlightHour','AnnualMinHour','AnnualMaxHour']
 
@@ -424,7 +423,7 @@ def main():
         for i in range(numberOfapartments):
             writer.writerow([city_name_list[i],latitude_list[i],longitude_list[i],DayOfFocus_list[i],DayOfFocusHeight[i],DayofFocusHour[i],WinterHeight[i],SummerHeight[i],AnnualTotalSunlightHour[i],AnnualAvgSunlightHour[i],AnnualMinHour[i],AnnualMaxHour[i]])
    
-
+    displayResults (latitude_list, longitude_list, city_name_list, DayOfFocus_list, DayOfFocusHeight, SummerHeight, WinterHeight, DayofFocusHour, AnnualTotalSunlightHour, AnnualAvgSunlightHour, AnnualMinHour, AnnualMaxHour)
 
 
 
