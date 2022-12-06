@@ -224,8 +224,8 @@ def sunlighthourstatistics (user_Latitude):
     #min,max,avg,sum
     minhour=min(CalculationsList)
     maxhour=max(CalculationsList)
-    avghour=sum(CalculationsList)/len(CalculationsList),2
-    sumhour=sum(CalculationsList),2
+    avghour=round(sum(CalculationsList)/len(CalculationsList),10)
+    sumhour=round(sum(CalculationsList),10)
 
     return minhour,maxhour,avghour,sumhour
 
