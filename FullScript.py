@@ -341,12 +341,13 @@ def main():
         print()
         if end.upper() == 'Y' :
             break
-        myheader=['CityName','Latitude','Longitude','DayOfFocus','DayOfFocusHeight','DayofFocusHour','WinterHeight','SummerHeight','WinterHeight','AnnualTotalSunlightHour','AnnualAvgSunlightHour','AnnualMinHour','AnnualMaxHour']
-        with open('output.csv','w',newline='') as newfile:
-            writer=csv.writer(newfile)
-            writer.writerow(myheader)
-            for i in range(len(latitude_list)):
-                writer.writerow([city_name_list[i],latitude_list[i],longitude_list[i],DayOfFocus_list[i],building_height_list[i],building_distance_list[i]])
+        #delete these
+        # myheader=['CityName','Latitude','Longitude','DayOfFocus','DayOfFocusHeight','DayofFocusHour','WinterHeight','SummerHeight','WinterHeight','AnnualTotalSunlightHour','AnnualAvgSunlightHour','AnnualMinHour','AnnualMaxHour']
+        # with open('output.csv','w',newline='') as newfile:
+        #     writer=csv.writer(newfile)
+        #     writer.writerow(myheader)
+        #     for i in range(len(latitude_list)):
+        #         writer.writerow([city_name_list[i],latitude_list[i],longitude_list[i],DayOfFocus_list[i],building_height_list[i],building_distance_list[i]])
 
     ### get .gbd options ###
     # default values
@@ -415,10 +416,14 @@ def main():
 
         #SunlightCalculator(DayVal,user_Latitude)
 
- 
+    myheader=['CityName','Latitude','Longitude','DayOfFocus','DayOfFocusHeight','DayofFocusHour','WinterHeight','SummerHeight','AnnualTotalSunlightHour','AnnualAvgSunlightHour','AnnualMinHour','AnnualMaxHour']
+
+    with open('output.csv','w',newline='') as newfile:
+        writer=csv.writer(newfile)
+        writer.writerow(myheader)
+        for i in range(numberOfapartments):
+            writer.writerow([city_name_list[i],latitude_list[i],longitude_list[i],DayOfFocus_list[i],DayOfFocusHeight[i],DayofFocusHour[i],WinterHeight[i],SummerHeight[i],AnnualTotalSunlightHour[i],AnnualAvgSunlightHour[i],AnnualMinHour[i],AnnualMaxHour[i]])
    
-
-
 
 
 
