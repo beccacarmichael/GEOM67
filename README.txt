@@ -23,6 +23,8 @@ for easy dissemination.
 #################### ASSUMPTIONS AND LIMITATIONS ################
 -   The program will assume a 365-day calendar year and will not account for leap years.
 -   Summer and winter solstice are hard-coded to days 172 and 355 respectively
+-   Apartment height calculations are only relevant for the northern hemisphere. Additional work required for southern hemisphere.
+-   Any lat and long can be provided, but picking a city from a list feature is only applicable to Canadian cities
 -	Minimum apartment height calculations are based on receiving at least one hour of potential daylight exposure during 
     the day of focus, winter solstice, and summer solstice; not full days of exposure.
 -   Apartment height calculations assume south facing windows in the Northern hemisphere.
