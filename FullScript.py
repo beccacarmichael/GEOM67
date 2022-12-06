@@ -224,7 +224,7 @@ def sunlighthourstatistics (user_Latitude):
         
     CalculationsList=[]
     for d in range(1,365):
-        sunlighthour=2*(1/15)*(180/math.pi)*math.acos((-math.tan((math.pi/180)*user_Latitude))*(math.tan((math.pi/180)*23.44*math.sin((360/365)*(d+284)*(math.pi/180)))))
+        sunlighthour=2*2*(1/15)*(180/math.pi)*math.acos((-math.tan((math.pi/180)*43.6))*(math.tan((math.pi/180)*23.44*math.sin((360/365)*(d+284)*(math.pi/180)))))
         CalculationsList.append(sunlighthour)
 
     #min,max,avg,sum
@@ -235,10 +235,6 @@ def sunlighthourstatistics (user_Latitude):
 
     return minhour,maxhour,avghour,sumhour
 
-print("Minimum Sunlight is",sunlighthourstatistics(76)[0])
-print("Maximum Sunlight is",sunlighthourstatistics(76)[1])
-print("Average Sunlight is",sunlighthourstatistics(76)[2])
-print("Total Yearly Hours of Sunlight",sunlighthourstatistics(76)[3])
 
 ###################ARCPY MODULE##########################
 #Lead: Adrian K. 
