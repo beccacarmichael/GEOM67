@@ -97,7 +97,6 @@ def getInputForAnApartment ():
         elif locationType == "city":
             city_name = input("Please enter the Canadian city the prospective apartment is located in: ")
             city_name = city_name.upper()  # make the city name uppercase because the list of cities is uppercase
-            #######province = input("Please enter the Canadian province/territory the prospective apartment is located in: ")
             foundCity = False
             for city_data in city_reference_list:
                 if city_name == city_data[0]:
@@ -110,7 +109,6 @@ def getInputForAnApartment ():
                 print("That city isn’t in the system")
                 user_Latitude, user_Longitude = getLatLong()
             
-            city_name = city_name + ", " ##+ province.upper()  # add the province name to the city for display purposes
 
         # If they enter something else, we ask them to try again
         else:
@@ -233,16 +231,11 @@ def getUserInputs ():
     user_FeatureName = ""
 
     # Ask user if they want the .gbd
-    wants_gdb_input = input("Would you like to export the results as a .gdb? Yes or No: ")
+    wants_gdb_input = input("Would you like to export the results as a shape file? Yes or No: ")
     
     # If they want it, set user_wants_gdb to true and ask them for all the details
     if wants_gdb_input.lower() == "yes" or wants_gdb_input.lower() == "y" :
         user_wants_gbd = True
-
-        user_GISProjectPath = input("Enter the project path: ")
-        user_GISProjectName = input("Enter the project name: ")
-        user_GISMapName = input("Enter the project map name: ")
-        user_FeatureName = input("Enter the project feature name: ")
 
         print("A .gdb file will be generated")
     
