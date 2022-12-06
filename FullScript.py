@@ -12,7 +12,9 @@ import math
 import os
 import arcpy
 
-#Import the lat/long city list - the list was written by Yingjia Ye  
+#Import the lat/long city list - the list was written by Yingjia Ye 
+# https://www.latlong.net/category/cities-40-15.html
+# https://www.get-direction.com/cities-lat-long.html?country=canada-2&offset=435 
 import csv
 
 ################### MIN HEIGHT CALCULATOR FUNCTION ###############################
