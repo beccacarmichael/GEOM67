@@ -458,7 +458,7 @@ def main():
 
     myheader=['CityName','Latitude','Longitude','DayOfFocus','DayOfFocusHeight','DayofFocusHour','WinterHeight','SummerHeight','AnnualTotalSunlightHour','AnnualAvgSunlightHour','AnnualMinHour','AnnualMaxHour']
 
-    with open('output.csv','w',newline='') as newfile:
+    with open('A3Team7Output.csv','w',newline='') as newfile:
         writer=csv.writer(newfile)
         writer.writerow(myheader)
         for i in range(numberOfapartments):
