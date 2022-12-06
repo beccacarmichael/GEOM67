@@ -301,7 +301,7 @@ def GeoSpatialFunction():
 #Notes: This section displays all of the in-program outputs including the user inputs and calculated values for each apartment. 
 ########################################################################
 
-def displayResultsForAnApartment (user_Latitude, user_Longitude, city_name, DayOfFocus, FocusDay_MinimumHeight, SummSolstice_MinimumHeight, WintSolstice_MinimumHeight, FocusDay_SunlightHours, AnnualTotalSunlight, AnnualAvgSunlight, AnnualMin, AnnualMax):s
+def displayResultsForAnApartment (user_Latitude, user_Longitude, city_name, DayOfFocus, FocusDay_MinimumHeight, SummSolstice_MinimumHeight, WintSolstice_MinimumHeight, FocusDay_SunlightHours, AnnualTotalSunlight, AnnualAvgSunlight, AnnualMin, AnnualMax):
     '''Output the results for an apartment in three parts: The apartment info, minimum height results, and hours of sunlight results'''
     print("\n------------------------------------------------------------------------------------------------------------")
 
