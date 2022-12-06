@@ -481,9 +481,7 @@ def main():
 
     ################### MAIN PROGRAM - OUTPUT TABLE  ##########################
     #Lead: Yingjia Y.
-    #Support: YJ - ADD OR DELETE 
     #Notes: This section creates an output table in a csv file which contains the user inputs and calculated values. 
-    #Sources: YJ - ADD OR DELETE 
     ##########################################################################
 
     myheader=['CityName','Latitude','Longitude','DayOfFocus','DayOfFocusHeight','DayofFocusHour','WinterHeight','SummerHeight','AnnualTotalSunlightHour','AnnualAvgSunlightHour','AnnualMinHour','AnnualMaxHour']
