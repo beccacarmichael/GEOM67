@@ -151,7 +151,7 @@ def getInputForAnApartment ():
             print("Please enter both the latitude and longitude as numeric values (use decimal units).  Try again:\n")
 
             return None, None
-        if user_Latitude <-90 or user_Latitude > 90 or user_Latitude > 180 or user_Latitude < -180: 
+        if user_Latitude <-90 or user_Latitude > 90 or user_Longitude > 180 or user_Longitude < -180: 
             print("Please enter meaningful latitude and longitude values.")
             return None, None 
         return round(user_Latitude, 8), round(user_Longitude, 8)
