@@ -4,7 +4,7 @@ Readme section lead: Adrian Koornneef
 ################################################################################################################
 
 #################### AUTHORS ####################################
-Adrian Koornneef, Chris Boom, Becca Charmicael, Yingjia Ye
+Adrian Koornneef, Chris Boom, Becca Charmichael, Yingjia Ye
 #################################################################
 
 #################### PURPOSE ####################################
@@ -49,7 +49,7 @@ Test feature classes can be found in the geodatabase.
 #################### INPUTS ###################################
 List of Canadian cities .csv (see sources for more information)
 Inputs required from user: 
-    - Lat / Long cooridinates or name of Canadian city for desired apartment location
+    - Lat / Long coordinates or name of Canadian city for desired apartment location
     - Day of study (i.e. FocusDay)
     - Height of southern influencing building
     - Distance of southern influencing building from desired apartment location
@@ -61,7 +61,7 @@ Inputs required from user:
 Values provided:
     - Minimum apartment height for the day of focus, to receive at least 1 hour of sunlight
     - Minimum apartment height at winter solstice (i.e. shortest day of the year)
-    - Minimum apartmennt height at summer solistice (i.e. longest day of the year)
+    - Minimum apartment height at summer solstice (i.e. longest day of the year)
     - Hours of potential sunlight expected at the provided location (not inside the apartment itself) for day of focus
     - Hours of potential sunlight expected at the provided location for winter solstice 
     - Hours of potential sunlight expected at the provided location for summer solstice
@@ -76,11 +76,11 @@ Feature layer and shapefile are added to the active environment of a map in ArcG
 
 #################### CONTRIBUTIONS ############################
 See individual module heading section for code contributions.
-Additional contirbutions not identified in individual code section:
+Additional contributions not identified in individual code section:
 - Topic brainstorming leads: Yingjia, Adrian
 - Initial math feasibility check lead: Yingjia
-- Extensive algroithm testing (project design): Chris
-- Initial python algroithm drafting and debugging: Yingjia
+- Extensive algorithm testing (project design): Chris
+- Initial python algorithm drafting and debugging: Yingjia
 - Debugging: Chris, Yingjia
 - Github repository management: Becca
 - Readme: Adrian
