@@ -108,8 +108,8 @@ def getInputForAnApartment ():
 
     # This little function prompts the user for the latitude and longitude and returns them as floats, or returns them as "None" and asks the user to try again, if they can't be cast to floats
     def getLatLong ():
-        user_Latitude = input("Please enter the decimal latitude: ")
-        user_Longitude = input("Please enter the decimal longitude: ")
+        user_Latitude = input("Please enter the decimal latitude (ex: 55.74994204): ")
+        user_Longitude = input("Please enter the decimal longitude (ex: -97.86662093): ")
 
         # Make them floats.  If it doesn't work, return None for both values.
         try:
@@ -418,22 +418,21 @@ def main():
         #     for i in range(len(latitude_list)):
         #         writer.writerow([city_name_list[i],latitude_list[i],longitude_list[i],DayOfFocus_list[i],building_height_list[i],building_distance_list[i]])
 
-    ### get .gbd options ###
+    ### get shp options ###
     # default values
-    user_wants_gbd = False
+    user_wants_shp = False
 
     # Ask user if they want the .gbd
-    wants_gdb_input = input("Would you like to export the results as a .gdb? Yes or No: ")
+    wants_shp_input = input("Would you like to export the results as a shapefile? Yes or No: ")
 
-    # If they want it, set user_wants_gdb to true and ask them for all the details
-    if wants_gdb_input.lower() == "yes" or wants_gdb_input.lower() == "y" :
-        user_wants_gbd = True
-
-        print("A .gdb file will be generated")
+    # If they want it, set user_wants_shp to true and ask them for all the details
+    if wants_shp_input.lower() == "yes" or wants_shp_input.lower() == "y" :
+        user_wants_shp = True
+        print("A shapefile file will be generated")
 
     # If they don't want it, leave the default (blank) values
     else:
-        print("A .gbd file will not be generated")
+        print("A shapefile file will not be generated")
 
     #Hard Coding Wint/Summer Solstice
     SummSolstice_DayVal = 172
