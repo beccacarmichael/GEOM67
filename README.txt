@@ -24,8 +24,7 @@ for easy dissemination.
 -   The program will assume a 365-day calendar year and will not account for leap years.
 -   Summer and winter solstice are hard-coded to days 172 and 355 respectively
 -	Minimum apartment height calculations are based on receiving at least one hour of potential daylight exposure during 
-    the day of focus.
--   Winter solstice, and summer solstice; not full days of exposure.
+    the day of focus, winter solstice, and summer solstice; not full days of exposure.
 -   Apartment height calculations assume south facing windows in the Northern hemisphere.
 -   Calculations for potential sunlight exposure are based on the geographic area of focus, 
     the program will not calculate hours of potential sunlight in the apartment itself. 
