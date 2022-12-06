@@ -50,9 +50,7 @@ def SunlightCalculator(DayVal,user_Latitude):
 ##########################REVIEW AND UPDATE TO ACCOMODATE SHIFTING PARTS######################
 #Lead: Becca C & Yingjia Y 
 #Support: N/AS 
-#Notes: This module includes all of the prompts for the user inputs and 
-# outputs for the program. It is intended to be imported into the main 
-# file. 
+#Notes: This module includes all of the prompts for the user inputs for the program.  
 #Sources: N/A
 ##############################################################################
 
@@ -67,7 +65,7 @@ def getInputForAnApartment ():
     with open("latlong.csv", newline="") as fo:
         city_reference_list = list(csv.reader(fo)) # read the file into a big list
 
-    ### Some constants that are used in this function
+    ### Constants that are used in this function - days in each month and assigning months - written by BC 
     daysInEachMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
     monthNumberFromEnglishName = {
         "jan": 1,
@@ -103,38 +101,34 @@ def getInputForAnApartment ():
     user_Longitude = None
     city_name = ""
 
-    # This little function prompts the user for the latitude and longitude and returns them as floats, or returns them as "None" and asks the user to try again, if they can't be cast to floats
+    # Prompt for the latitude and longitude (returned  as floats, or returns them as "None" and asks the user to try again, if they can't be cast to floats)
     def getLatLong ():
         user_Latitude = input("Please enter the decimal latitude (ex: 55.74994204): ")
         user_Longitude = input("Please enter the decimal longitude (ex: -97.86662093): ")
 
-        # Make them floats.  If it doesn't work, return None for both values.
         try:
             user_Latitude = float(user_Latitude)
             user_Longitude = float(user_Longitude)
         except ValueError:
             print("Please enter both the latitude and longitude as numeric values (use decimal units).  Try again:\n")
 
-            # The while loop to get the location info keeps running if the lat/long are None,
-            #   so if we couldn't make them numbers, make them None so that the loop will go again and the user can try entering the values again
             return None, None
+        if user_Latitude <-90 or user_Latitude > 90 or user_Latitude > 180 or user_Latitude < -180: 
+            print("Those coordinates cannot be calculated, please try again.")
+            return None, None 
+        return round(user_Latitude, 8), round(user_Longitude, 8)
 
-        return user_Latitude, user_Longitude
-
-    # Get inputs inside a loop so that user can try again if they enter invalid info
     while (user_Latitude is None or user_Longitude is None):
-        # Ask them how they want to enter the info
         locationType = input("Would you like to select from a list of Canadian cities, or provide the latitude/longitude coordinates? (city/coords): ")
         
-        # If they want to enter coordinates directly, just do that
+        # If user wants to enter just coordinates 
         if locationType == "coords":
             user_Latitude, user_Longitude = getLatLong()
 
-        # If they want to enter a city name, we check if we have it in the list, and if not then they have to enter coordinates
+        # If they want to enter a city name, we check if we have it in the (latlong csv by YJ), and if not then they have to enter coordinates
         elif locationType == "city":
             city_name = input("Please enter the Canadian city the prospective apartment is located in: ")
-            city_name = city_name.upper()  # make the city name uppercase because the list of cities is uppercase
-            #######province = input("Please enter the Canadian province/territory the prospective apartment is located in: ")
+            city_name = city_name.upper()  
             foundCity = False
             for city_data in city_reference_list:
                 if city_name == city_data[0]:
@@ -147,27 +141,23 @@ def getInputForAnApartment ():
                 print("That city isn’t in the system")
                 user_Latitude, user_Longitude = getLatLong()
 
-        # If they enter something else, we ask them to try again
         else:
             print("Please reply with 'city' or 'coords' to decide how to input the location\n")
 
-    ### Get data for other building ###
+    ### Get data for other building - written by BC###
     building_height = None
     building_distance = None
 
-    # Get inputs inside a loop so that user can try again if they enter invalid info
     while(building_distance is None or building_height is None):
         building_height = input("Please enter the height of the closest south facing adjacent building, in meters: ")
         building_distance = input("Please enter the distance between the two buildings in meters: ")
 
-        # Try to make them numbers
         try:
             building_height = float(building_height)
             building_distance = float(building_distance)
 
         # If the inputs can't be made into numbers, tell the user to try again
         except ValueError:
-            # The while loop to get the info keeps running if the values are None,
             #   so if we couldn't make them numbers, make them None so that the loop will go again and the user can try entering the values again
             building_height = None
             building_distance = None
@@ -368,7 +358,7 @@ def main():
     """This is the main program, which calls various functions from different modules"""
 
     startMessage = """POTENTIAL SUNLIGHT EXPOSURE CALCULATOR FOR APARTMENT HUNTERS
-    This program will calculate statistical data about potential sunlight for a city/ area in Canada, based off spatial data, as well as the optical height (floor) of a dwelling (apartment).
+    This program will calculate statistical data about potential sunlight for a city/ area in the Northern Hemisphere, based off spatial data, as well as the optical height (floor) of a dwelling (apartment).
     This will aid apartment hunters in preventing selecting an apartment with less/ no sunlight exposure due to other buildings.
     """
     print(startMessage)
