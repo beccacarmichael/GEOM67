@@ -1,7 +1,7 @@
 #math testing
 import math
 
-latitude = 60
+latitude = 20
 
 # attempt 1, values are not correct
 
@@ -10,7 +10,7 @@ if summaryhour== "y":
     
     alist=[]
     for d in range(1,365):
-        sunlighthour=2*(1/15)*(180/math.pi)*math.acos((-math.tan((math.pi/180)*43.6))*(math.tan((math.pi/180)*23.44*math.sin((360/365)*(d+284)*(math.pi/180)))))
+        sunlighthour=2*(1/15)*(180/math.pi)*math.acos((-math.tan((math.pi/180)*63))*(math.tan((math.pi/180)*23.44*math.sin((360/365)*(d+284)*(math.pi/180)))))
         sunlighthour=round(float(sunlighthour),2)
         alist.append(sunlighthour)
     print(alist)
