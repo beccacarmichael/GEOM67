@@ -1,9 +1,47 @@
 ################### ApartmentSeekerSunlightCalculator.py ##########################
+#ApartmentSeekerSunlightCalculator.py
 #Authors: Adrian Koornneef, Becca Charmichael, Chris Boom, Yingjia Ye
-#Program notes included throughout the script in various modules
-#Main Program function begins after functions / modules
-#Program notes are provided in each module / function section
-#Detailed notes are provided in readme file found in the program main folder
+#Last Updated: Dec-06-2022
+
+#Reading notes: 
+# Program notes included throughout the script in various modules
+# Detailed notes are provided in readme file found in the program main folder
+# Program notes are provided in each module / function section
+# Main Program function begins after functions / modules
+
+#Purpose: This program will calculate the minimum required floor height for apartment hunters to prevent full shade at various times of year
+#given provide geospatial data. This program will also calculate statistical information about the amount of sunlight hours the user
+#can expect to receive, given the same geospatial information. 
+
+# Contributions: See individual module heading section for code contributions.
+# Modules:
+# - Min Height calculator function: Chris / Yingjia
+# - Day of focus sunlight calculator function: Chris / Yingjia
+# - User interface: Becca / Yingjia
+# - Sunlight hour statistics function: Chris
+# - ArcPy: Adrian
+# - Display results: Becca
+# - Main program: Adrian / team 
+#     -Output table: Yingjia
+# Additional contributions not identified in individual code section:
+# - Topic brainstorming leads: Yingjia, Adrian
+# - Initial math feasibility check lead: Yingjia
+# - Extensive algorithm testing (project design): Chris
+# - Initial python algorithm drafting and debugging: Yingjia
+# - Debugging: Chris, Yingjia
+# - Github repository management: Becca
+# - Readme: Adrian
+# - Code formatting for neatness: Adrian
+# - Meetings lead: Adrian
+
+#Sources: -Formulas:
+#     -Sunrise and Sunset Time Calculator | Sunrise Equation. (n.d.). Had2Know. Retrieved November 15, 2022, from https://www.had2know.org/society/sunrise-sunset-time-calculator-formula.html
+#     -Honsberg, C. B., & Bowden, S. G. (2019). Elevation Angle | PVEducation. https://www.pveducation.org/pvcdrom/properties-of-sunlight/elevation-angle
+#     -Honsberg, C. B., & Bowden, S. G. (2019). Declination Angle | PVEducation. https://www.pveducation.org/pvcdrom/properties-of-sunlight/declination-angle
+# -Support from Karen Whillians (professor) 
+# -Esri Website:
+#     -https://pro.arcgis.com/en/pro-app/latest/tool-reference/data-management/xy-table-to-point.htm
+#     -https://pro.arcgis.com/en/pro-app/latest/arcpy/mapping/map-class.htm
 ##################################################################################
 
 #Import Modules
@@ -11,7 +49,9 @@ import math
 import os
 import arcpy
 
-#Import the latlong city list - the list was written by Yingjia Ye  
+#Import the lat/long city list - the list was written by Yingjia Ye 
+# https://www.latlong.net/category/cities-40-15.html
+# https://www.get-direction.com/cities-lat-long.html?country=canada-2&offset=435 
 import csv
 
 ################### MIN HEIGHT CALCULATOR FUNCTION ###############################
@@ -111,7 +151,7 @@ def getInputForAnApartment ():
             print("Please enter both the latitude and longitude as numeric values (use decimal units).  Try again:\n")
 
             return None, None
-        if user_Latitude <-90 or user_Latitude > 90 or user_Latitude > 180 or user_Latitude < -180: 
+        if user_Latitude <-90 or user_Latitude > 90 or user_Longitude > 180 or user_Longitude < -180: 
             print("Please enter meaningful latitude and longitude values.")
             return None, None 
         return round(user_Latitude, 8), round(user_Longitude, 8)
@@ -230,11 +270,11 @@ def sunlighthourstatistics (user_Latitude):
     return minhour,maxhour,avghour,sumhour
 
 
-###################ARCPY MODULE##########################
+################### ARCPY MODULE##########################
 #Lead: Adrian K. 
 #Notes: This section imports the output table with the calculations provided into
 #an existing ArcGIS Project Geodatabase, converts it into a point feature class, adds
-#the feature class to the map, and exports the results as a shapefile for dissimination. This section 
+#the feature class to the map, and exports the results as a shapefile for dissemination. This section 
 # will make a new "copy" of the feature class and shapefile each time it is run and 'save as' in a copy of the ArcGIS Project.
 # It is recommended best practice that the user removes or renames previous versions of the feature classes / shapefiles between
 # each run. 
@@ -441,9 +481,7 @@ def main():
 
     ################### MAIN PROGRAM - OUTPUT TABLE  ##########################
     #Lead: Yingjia Y.
-    #Support: YJ - ADD OR DELETE 
-    #Notes: This section creates an output table in a csv file which contains the user inputs and calculated values. 
-    #Sources: YJ - ADD OR DELETE 
+    #Notes: This section writes to a csv file which contains the user inputs and calculated values. 
     ##########################################################################
 
     myheader=['CityName','Latitude','Longitude','DayOfFocus','DayOfFocusHeight','DayofFocusHour','WinterHeight','SummerHeight','AnnualTotalSunlightHour','AnnualAvgSunlightHour','AnnualMinHour','AnnualMaxHour']

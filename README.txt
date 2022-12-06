@@ -1,10 +1,11 @@
 ################################## APARTMENT SEEKER SUNLIGHT CALCULATOR README ##################################
 ApartmentSeekerSunlightCalculator.py
+Last Updated: Dec-06-2022
 Readme section lead: Adrian Koornneef
 ################################################################################################################
 
 #################### AUTHORS ####################################
-Adrian Koornneef, Chris Boom, Becca Charmicael, Yingjia Ye
+Adrian Koornneef, Chris Boom, Becca Charmichael, Yingjia Ye
 #################################################################
 
 #################### PURPOSE ####################################
@@ -34,7 +35,9 @@ for easy dissemination.
 -   Height and distance calculations will be meters.
 -   Calculations are for potential hours of sunlight, and can’t account for overcast days, storms, etc.
 -   Geospatial data will be provided in WGS 1984 Geocordinate System.
--   Average sunlight hours and total sunlight hours produces very similar results, as a result of the number of potential hours averaging over the course of the year.  
+-   Average potential sunlight hours and total sunlight hours rounded to nearly identical results, as stretching the results
+    out over the course of the year reflected rotation of the earth, with extreme values (e.g. 30 nights of sunlight / 30 days of darkness)
+    got averaged out. 
 ###############################################################
 
 ################### IDENTIFIED BUGS ###########################
@@ -49,7 +52,7 @@ Test feature classes can be found in the geodatabase.
 #################### INPUTS ###################################
 List of Canadian cities .csv (see sources for more information)
 Inputs required from user: 
-    - Lat / Long cooridinates or name of Canadian city for desired apartment location
+    - Lat / Long coordinates or name of Canadian city for desired apartment location
     - Day of study (i.e. FocusDay)
     - Height of southern influencing building
     - Distance of southern influencing building from desired apartment location
@@ -61,7 +64,7 @@ Inputs required from user:
 Values provided:
     - Minimum apartment height for the day of focus, to receive at least 1 hour of sunlight
     - Minimum apartment height at winter solstice (i.e. shortest day of the year)
-    - Minimum apartmennt height at summer solistice (i.e. longest day of the year)
+    - Minimum apartment height at summer solstice (i.e. longest day of the year)
     - Hours of potential sunlight expected at the provided location (not inside the apartment itself) for day of focus
     - Hours of potential sunlight expected at the provided location for winter solstice 
     - Hours of potential sunlight expected at the provided location for summer solstice
@@ -76,11 +79,21 @@ Feature layer and shapefile are added to the active environment of a map in ArcG
 
 #################### CONTRIBUTIONS ############################
 See individual module heading section for code contributions.
-Additional contirbutions not identified in individual code section:
+Modules:
+- Min Height calculator function: Chris / Yingjia
+- Day of focus sunlight calculator function: Chris / Yingjia
+- User interface: Becca / Yingjia
+- Sunlight hour statistics function: Chris
+- ArcPy: Adrian
+- Display results: Becca
+- Main program: Adrian / team 
+    -Output table: Yingjia
+
+Additional contributions not identified in individual code section:
 - Topic brainstorming leads: Yingjia, Adrian
 - Initial math feasibility check lead: Yingjia
-- Extensive algroithm testing (project design): Chris
-- Initial python algroithm drafting and debugging: Yingjia
+- Extensive algorithm testing (project design): Chris
+- Initial python algorithm drafting and debugging: Yingjia
 - Debugging: Chris, Yingjia
 - Github repository management: Becca
 - Readme: Adrian
@@ -94,6 +107,9 @@ Additional contirbutions not identified in individual code section:
     -Honsberg, C. B., & Bowden, S. G. (2019). Elevation Angle | PVEducation. https://www.pveducation.org/pvcdrom/properties-of-sunlight/elevation-angle
     -Honsberg, C. B., & Bowden, S. G. (2019). Declination Angle | PVEducation. https://www.pveducation.org/pvcdrom/properties-of-sunlight/declination-angle
 -Support from Karen Whillians (professor) 
+-latlong.csv reference website:
+    -https://www.latlong.net/category/cities-40-15.html
+    -https://www.get-direction.com/cities-lat-long.html?country=canada-2&offset=435
 -Esri Website:
     -https://pro.arcgis.com/en/pro-app/latest/tool-reference/data-management/xy-table-to-point.htm
     -https://pro.arcgis.com/en/pro-app/latest/arcpy/mapping/map-class.htm
