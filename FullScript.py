@@ -1,10 +1,10 @@
-###################Main Program ##########################
-#ApartmentSeekerSunlightCalculator.py
-#Lead: Becca 
-#Support: Adrian Koornneef
-#Notes: This section imports and executes the various necessary parts of the program. 
-#For additional program notes, see the readme file
-#########################################################
+################### ApartmentSeekerSunlightCalulator.py ##########################
+#Authors: Adrian Koornneef, Becca Charmichael, Chris Boom, Yingjia Ye
+#Program notes included throughout the script in various modules
+#Main Program function begins after functions / modules
+#Program notes are provided in each module / function section
+#Detailed notes are provided in readme file found in the program main folder
+##################################################################################
 
 #Import Modules
 import math
@@ -14,14 +14,13 @@ import arcpy
 #import the latlong/ city list 
 import csv
 
-
-################### MIN HEIGHT CALCULATOR FUNCTION ##########################
+################### MIN HEIGHT CALCULATOR FUNCTION ###############################
 #Lead: 
 #Support: 
 #Notes: 
 #this is to get your minimum appartment height
 #TO DO: CAP THE MIN HEIGHT AT ZERO
-#########################################################
+##################################################################################
 
 def minimumheight(user_Latitude,building_distance,building_height,DayVal):
     """CHRIS ADD FUNCTION COMMENT"""
@@ -39,16 +38,15 @@ def minimumheight(user_Latitude,building_distance,building_height,DayVal):
 #Support: 
 #Notes: 
 #this provides Sunlight Hours for 1 day
-#########################################################
+##################################################################################
 
 def SunlightCalculator(DayVal,user_Latitude):
     """CHRIS ADD FUNCTION COMMENT"""
     HoursofSunlight = 2*((1/15)*(180/math.pi)*(math.acos(((math.pi/180)*(-math.tan(float(user_Latitude)*(math.pi/180))*((math.tan(((23.44*(math.pi/180))*((math.sin(((360/365)*(math.pi/180)*(DayVal+284))))))))))))))
     HoursofSunlight = round(float(HoursofSunlight),2)
-
     return HoursofSunlight
 
-################### USER INTERFACE MODULE ##########################
+################### USER INTERFACE MODULE #######################################
 ##########################REVIEW AND UPDATE TO ACCOMODATE SHIFTING PARTS######################
 #Lead: Becca C & Yingjia Y 
 #Support: N/AS 
@@ -56,7 +54,7 @@ def SunlightCalculator(DayVal,user_Latitude):
 # outputs for the program. It is intended to be imported into the main 
 # file. 
 #Sources: N/A
-####################################################################
+##############################################################################
 
 def getInputForAnApartment ():
     '''Get all of the inputs for a single apartment.  There are three parts:
@@ -98,7 +96,6 @@ def getInputForAnApartment ():
         "december": 12
     }
     monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sep", "Oct", "Nov", "Dec"]
-
     print("Please answer the following questions with information regarding the prospective apartment:")
 
     ### Get location data for apartment ###
@@ -154,7 +151,6 @@ def getInputForAnApartment ():
         else:
             print("Please reply with 'city' or 'coords' to decide how to input the location\n")
 
-
     ### Get data for other building ###
     building_height = None
     building_distance = None
@@ -176,7 +172,6 @@ def getInputForAnApartment ():
             building_height = None
             building_distance = None
             print("Please enter both the building height and building distance as numeric values in meters.  Try again:\n")
-
 
     ### get date that user is focused on ###
     # Starts not defined
@@ -324,13 +319,12 @@ def GeoSpatialFunction():
     except Exception:
         print("There was an issue with the geospatial section of the project.")
 
-
 ################### DISPLAY APARTMENT RESULTS ##########################
 #Lead: Becca
 #Support: N/A
 #Notes: 
 #Sources: 
-####################################################################
+########################################################################
 
 def displayResultsForAnApartment (user_Latitude, user_Longitude, city_name, DayOfFocus, FocusDay_MinimumHeight, SummSolstice_MinimumHeight, WintSolstice_MinimumHeight, FocusDay_SunlightHours, AnnualTotalSunlight, AnnualAvgSunlight, AnnualMin, AnnualMax):
     '''Output the results for an apartment in three parts: The apartment info, minimum height results, and hours of sunlight results'''
@@ -364,23 +358,21 @@ def displayResults (latitude_list, longitude_list, city_name_list, DayOfFocus_li
         
     print("\n------------------------------------------------------------------------------------------------------------\n")
 
-################### MAIN PROGRAM ##########################
-#Lead: ALL
-#Support: N/A
-#Notes: 
-#Sources: 
-####################################################################
+################### MAIN PROGRAM ##############################################################
+#Lead: Adrian 
+#Support: All (completed together, w/ Adrian inputting, various parts taken out of other modules )
+#Notes: See Readme file
+#Sources: See Readme file
+###############################################################################################
 
 def main():
-    """This is the main program"""
-    # message for the program to print at the beginning
-    startMessage = """POTENTIAL SUNLIGHT EXPOSURE CALCULATOR FOR APARTMENT HUNTERS
+    """This is the main program, which calls various functions from different modules"""
 
+    startMessage = """POTENTIAL SUNLIGHT EXPOSURE CALCULATOR FOR APARTMENT HUNTERS
     This program will calculate statistical data about potential sunlight for a city/ area in Canada, based off spatial data, as well as the optical height (floor) of a dwelling (apartment).
     This will aid apartment hunters in preventing selecting an apartment with less/ no sunlight exposure due to other buildings.
     """
     print(startMessage)
-
 
     ### Get all the values for the locations ###
     # Empty lists to hold the inputs
@@ -391,8 +383,19 @@ def main():
     building_distance_list = []
     DayOfFocus_list = []
     DayVal_list = []
+    DayOfFocusHeight=[]
+    SummerHeight=[]
+    WinterHeight=[]
+    DayofFocusHour=[]
+    AnnualTotalSunlightHour=[]
+    AnnualAvgSunlightHour=[]
+    AnnualMinHour=[]
+    AnnualMaxHour=[]
+    #Hard Coding Wint/Summer Solstice
+    SummSolstice_DayVal = 172
+    WintSolstice_DayVal = 355
 
-        # Get inputs for apartments until they decide to stop entering values
+    # Get inputs for apartments until they decide to stop entering values
     while (True):
         # Get inputs for an apartment
         user_Latitude, user_Longitude, city_name, building_height, building_distance, DayOfFocus, DayVal = getInputForAnApartment()
@@ -404,7 +407,7 @@ def main():
         DayOfFocus_list.append(DayOfFocus)
         DayVal_list.append(DayVal)
 
-        #Let them break the loop if they want, or keep going
+        #Let the user break the loop if they wish, or keep going
         end = input("Do you want to stop entering values (Y/N)? ") 
         print()
         if end.upper() == 'Y' :
@@ -414,35 +417,22 @@ def main():
     # default values
     user_wants_shp = False
 
-    # Ask user if they want the .gbd
-    wants_shp_input = input("Would you like to export the results as a shapefile? Yes or No: ")
+    # Ask user if they want to perform the geospatial functions
+    wants_shp_input = input("Would you like to perform geospatial functions with ArcGIS Pro? Yes or No: ")
 
     # If they want it, set user_wants_shp to true and ask them for all the details
     if wants_shp_input.lower() == "yes" or wants_shp_input.lower() == "y" :
         user_wants_shp = True
-        print("A shapefile file will be generated")
+        print("A feature class and shapefile file will be generated")
 
     # If they don't want it, leave the default (blank) values
     else:
-        print("A shapefile file will not be generated")
+        print("A feature class and shapefile file will not be generated")
 
-    #Hard Coding Wint/Summer Solstice
-    SummSolstice_DayVal = 172
-    WintSolstice_DayVal = 355
-    
-    #Creating empty lists to fill calculations with
-    DayOfFocusHeight=[]
-    SummerHeight=[]
-    WinterHeight=[]
-    DayofFocusHour=[]
-    AnnualTotalSunlightHour=[]
-    AnnualAvgSunlightHour=[]
-    AnnualMinHour=[]
-    AnnualMaxHour=[]
-
+    #Call the necessary functions to complete each calculation, for each location provided by the user
     numberOfapartments = len(latitude_list)
     for i in range(numberOfapartments):
-        #Call the Minimum Height Calculations
+        #Establish temporary variabels that can be written over for each iteration of the loop.
         user_LatitudeTemp = latitude_list[i]
         building_distanceTemp =  building_distance_list[i]
         building_heightTemp = building_height_list[i]
@@ -474,6 +464,12 @@ def main():
         sumhour = sunlighthourstatistics(user_LatitudeTemp)[3]
         AnnualTotalSunlightHour.append(sumhour)
 
+    ################### MAIN PROGRAM - OUTPUT TABLE  ##########################
+    #Lead: Yingjia
+    #Support:
+    #Notes: 
+    #Sources: 
+    ##########################################################################
 
     myheader=['CityName','Latitude','Longitude','DayOfFocus','DayOfFocusHeight','DayofFocusHour','WinterHeight','SummerHeight','AnnualTotalSunlightHour','AnnualAvgSunlightHour','AnnualMinHour','AnnualMaxHour']
 
@@ -483,31 +479,18 @@ def main():
         for i in range(numberOfapartments):
             writer.writerow([city_name_list[i],latitude_list[i],longitude_list[i],DayOfFocus_list[i],DayOfFocusHeight[i],DayofFocusHour[i],WinterHeight[i],SummerHeight[i],AnnualTotalSunlightHour[i],AnnualAvgSunlightHour[i],AnnualMinHour[i],AnnualMaxHour[i]])
    
+   ######################MAIN PROGRAM - COTINUED ##############################
     displayResults (latitude_list, longitude_list, city_name_list, DayOfFocus_list, DayOfFocusHeight, SummerHeight, WinterHeight, DayofFocusHour, AnnualTotalSunlightHour, AnnualAvgSunlightHour, AnnualMinHour, AnnualMaxHour)
 
     #Call the ArcPy Module
     if user_wants_shp == True: 
         GeoSpatialFunction()
 
+    #Output messaging
+    print()
+    print("\n------------------------------------------------------------------------------------------------------------\n")
+    print("Program complete. Please run again if you wish to complete for another location.")
 
-
-
-
-
-
-### WHEN WE INPUT THE ARCPY SECTION CREATE IT SO THAT IT ONLY WORKS IF THE USER ASKED FOR IT
-
-################### FINAL MESSAGING ##########################
-#Lead: 
-#Support: 
-#Notes: 
-
-#############################################################
-
-# print()
-# print("-----------------------------------------------------------------------------------------")
-# print("Program complete. Please run again if you wish to complete for another location.")
-
-
+#Call to begin the main program
 if __name__ == '__main__':
     main()
