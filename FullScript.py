@@ -56,17 +56,21 @@ import csv
 
 ################### MIN HEIGHT CALCULATOR FUNCTION ###############################
 #Lead: Chris B. 
-#Support: CHRIS - ADD OR DELETE 
+#Support: Yingjia Y 
 #Notes: This section calculates the minimum height of apartment needed to get sunlight on any given day 
-#Sources: CHRIS - ADD OR DELETE 
+#Sources: See Readme file
 ##################################################################################
 
 def minimumheight(user_Latitude,building_distance,building_height,DayVal):
-    """CHRIS ADD FUNCTION COMMENT"""
-    FocusDay_DeclinationAngle=-23.45*math.cos((math.pi/180)*(360/365)*(DayVal+10)) #declination angle calculation    
-    ElevationAngle=90-float(user_Latitude)+float(FocusDay_DeclinationAngle) #elevation angle calculation    
-    minimumheight=building_height-(math.tan((math.pi/180)*ElevationAngle))*building_distance #MinimumHeight calculation
-    minimumheight=round(minimumheight,2) #Rounding Final Answer
+    """This function does three calculations to return the required height of the users inputed building. 
+    Calculation 1 is of declination angle given users day of focus. 
+    Calculation 2 is of the elevation angle 
+    Calculation 3 is of the minimum height of the building rounded to two decimal places
+    Returns values above 0, else it returns 0"""
+    FocusDay_DeclinationAngle=-23.45*math.cos((math.pi/180)*(360/365)*(DayVal+10))     
+    ElevationAngle=90-float(user_Latitude)+float(FocusDay_DeclinationAngle)    
+    minimumheight=building_height-(math.tan((math.pi/180)*ElevationAngle))*building_distance
+    minimumheight=round(minimumheight,2)
     if minimumheight > 0:
         return minimumheight
     else:
@@ -74,13 +78,13 @@ def minimumheight(user_Latitude,building_distance,building_height,DayVal):
 
 ################### DAY OF FOCUS SUNLIGHT HOUR FUNCTION ##########################
 #Lead: Chris B. 
-#Support: CHRIS - ADD OR DELETE 
+#Support: Yingjia Y 
 #Notes: This section calculates the possible amount of sunlight hours for one day
-#Sources: CHRIS - ADD OR DELETE 
+#Sources: See Readme file 
 ##################################################################################
 
 def SunlightCalculator(DayVal,user_Latitude):
-    """CHRIS ADD FUNCTION COMMENT"""
+    """This function calculates the hours of sunlight given a day of focus, and latitude, rounded to two decimal places."""
     HoursofSunlight = 2*(1/15)*(180/math.pi)*math.acos((-math.tan((math.pi/180)*user_Latitude))*(math.tan((math.pi/180)*23.44*math.sin((360/365)*(DayVal+284)*(math.pi/180)))))
     HoursofSunlight = round(float(HoursofSunlight),2)
     return HoursofSunlight
@@ -246,22 +250,19 @@ def getInputForAnApartment ():
 
 ################### SUNLIGHT HOUR STATISTICS  ##########################
 #Lead: Chris B.
-#Support: CHRIS - ADD OR DELETE 
+#Support: Yingjia Y 
 #Notes: This section calculates the minimum, maximum, average and sum of possible sunlight hours 
-#Sources: CHRIS - ADD OR DELETE 
+#Sources: See Readme file
 ####################################################################
 
 def sunlighthourstatistics (user_Latitude):
-    """CHRIS ADD FUNCTION COMMENT"""
-    #latitude = 76
-    #dayVal = 1   
-        
+    """This function provides basic statistics. The calculation of sunlight hours is looped 365 times. It creates a lists of 365 min,max,avg,sum values."""
+          
     CalculationsList=[]
     for d in range(1,366):
         sunlighthour=2*(1/15)*(180/math.pi)*math.acos((-math.tan((math.pi/180)*user_Latitude))*(math.tan((math.pi/180)*23.44*math.sin((360/365)*(d+284)*(math.pi/180)))))
         CalculationsList.append(sunlighthour)
 
-    #min,max,avg,sum
     minhour=min(CalculationsList)
     maxhour=max(CalculationsList)
     avghour=sum(CalculationsList)/len(CalculationsList)
