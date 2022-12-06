@@ -217,7 +217,7 @@ def sunlighthourstatistics (user_Latitude):
     #dayVal = 1   
         
     CalculationsList=[]
-    for d in range(1,365):
+    for d in range(1,366):
         sunlighthour=2*(1/15)*(180/math.pi)*math.acos((-math.tan((math.pi/180)*user_Latitude))*(math.tan((math.pi/180)*23.44*math.sin((360/365)*(d+284)*(math.pi/180)))))
         CalculationsList.append(sunlighthour)
 
@@ -301,7 +301,7 @@ def GeoSpatialFunction():
 #Notes: This section displays all of the in-program outputs including the user inputs and calculated values for each apartment. 
 ########################################################################
 
-def displayResultsForAnApartment (user_Latitude, user_Longitude, city_name, DayOfFocus, FocusDay_MinimumHeight, SummSolstice_MinimumHeight, WintSolstice_MinimumHeight, FocusDay_SunlightHours, AnnualTotalSunlight, AnnualAvgSunlight, AnnualMin, AnnualMax):s
+def displayResultsForAnApartment (user_Latitude, user_Longitude, city_name, DayOfFocus, FocusDay_MinimumHeight, SummSolstice_MinimumHeight, WintSolstice_MinimumHeight, FocusDay_SunlightHours, AnnualTotalSunlight, AnnualAvgSunlight, AnnualMin, AnnualMax):
     '''Output the results for an apartment in three parts: The apartment info, minimum height results, and hours of sunlight results'''
     print("\n------------------------------------------------------------------------------------------------------------")
 
