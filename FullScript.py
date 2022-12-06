@@ -403,7 +403,6 @@ def main():
         FocusDay_SunlightHours = SunlightCalculator(DayValTemp, user_LatitudeTemp)
         DayofFocusHour.append(FocusDay_SunlightHours)
     
-
         #Calculate sunlight hour statistics
         minhour = sunlighthourstatistics(user_LatitudeTemp)[0]
         AnnualMinHour.append(minhour)
@@ -413,12 +412,6 @@ def main():
         AnnualAvgSunlightHour.append(avghour)
         sumhour = sunlighthourstatistics(user_LatitudeTemp)[3]
         AnnualTotalSunlightHour.append(sumhour)
-
-    print("Height calculations: ", "Height:" , DayOfFocusHeight, "Summ Height: ",  SummerHeight, "Wint Height: ", WinterHeight)
-    print("Hour calculations: ", "Min hour: ",  AnnualMinHour, "max hour:", AnnualMaxHour, "Annual hours:", AnnualAvgSunlightHour, "total hours:", AnnualTotalSunlightHour)
-   
-
-
 
         #SunlightCalculator(DayVal,user_Latitude)
 
