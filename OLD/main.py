@@ -1,23 +1,11 @@
-#################################################################################################
-
-
-
 ###################Main Program ##########################
 #ApartmentSeekerSunlightCalculator.py
 #Lead: Becca 
 #Support: Adrian Koornneef
 #Notes: This section imports and executes the various necessary parts of the program. 
-#Sources: 
+#For additional program notes, see the readme file
 #########################################################
 
-
-
-
-import becca_userInterface
-import SunlightHourCalculator 
-import minimum_height
-import ArcPyScript
-import YJ_OutputTable
 
 SummSolstice_DayVal = 172
 WintSolstice_DayVal = 355
