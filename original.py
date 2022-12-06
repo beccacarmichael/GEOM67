@@ -50,3 +50,4 @@ if summaryhour== "y":
     avghour=sum(alist)/len(alist)
 
     print("sum is",sumhour,"min hour is",minhour,"max hour is", maxhour, "avg hour is", avghour)
+
