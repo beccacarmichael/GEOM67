@@ -1,4 +1,4 @@
-################### ApartmentSeekerSunlightCalulator.py ##########################
+################### ApartmentSeekerSunlightCalculator.py ##########################
 #Authors: Adrian Koornneef, Becca Charmichael, Chris Boom, Yingjia Ye
 #Program notes included throughout the script in various modules
 #Main Program function begins after functions / modules
@@ -11,15 +11,14 @@ import math
 import os
 import arcpy
 
-#import the latlong/ city list 
+#Import the latlong city list - the list was written by Yingjia Ye  
 import csv
 
 ################### MIN HEIGHT CALCULATOR FUNCTION ###############################
-#Lead: 
-#Support: 
-#Notes: 
-#this is to get your minimum appartment height
-#TO DO: CAP THE MIN HEIGHT AT ZERO
+#Lead: Chris B. 
+#Support: CHRIS - ADD OR DELETE 
+#Notes: This section calculates the minimum height of apartment needed to get sunlight on any given day 
+#Sources: CHRIS - ADD OR DELETE 
 ##################################################################################
 
 def minimumheight(user_Latitude,building_distance,building_height,DayVal):
@@ -34,10 +33,10 @@ def minimumheight(user_Latitude,building_distance,building_height,DayVal):
         return 0
 
 ################### DAY OF FOCUS SUNLIGHT HOUR FUNCTION ##########################
-#Lead: 
-#Support: 
-#Notes: 
-#this provides Sunlight Hours for 1 day
+#Lead: Chris B. 
+#Support: CHRIS - ADD OR DELETE 
+#Notes: This section calculates the possible amount of sunlight hours for one day
+#Sources: CHRIS - ADD OR DELETE 
 ##################################################################################
 
 def SunlightCalculator(DayVal,user_Latitude):
@@ -47,11 +46,10 @@ def SunlightCalculator(DayVal,user_Latitude):
     return HoursofSunlight
 
 ################### USER INTERFACE MODULE #######################################
-##########################REVIEW AND UPDATE TO ACCOMODATE SHIFTING PARTS######################
 #Lead: Becca C & Yingjia Y 
-#Support: N/AS 
-#Notes: This module includes all of the prompts for the user inputs for the program.  
-#Sources: N/A
+#Notes: This section includes all of the prompts for the user input for the program to get all of the apartment data,
+# and the DayValu calculator which calculates how many days into the year the selected date is.    
+#Assumptions: the calculation is not being made for a leap year
 ##############################################################################
 
 def getInputForAnApartment ():
@@ -61,7 +59,7 @@ def getInputForAnApartment ():
     Date - DayVal, DayOfFocus.  DayVal is an int and tells you how many days into the year the date is.  DayOfFocus is a string like "Feb 1"
     '''
 
-    # get the city data from the csv - written by YJ
+    #Get the city data from the csv - written by YJ
     with open("latlong.csv", newline="") as fo:
         city_reference_list = list(csv.reader(fo)) # read the file into a big list
 
@@ -101,7 +99,7 @@ def getInputForAnApartment ():
     user_Longitude = None
     city_name = ""
 
-    # Prompt for the latitude and longitude (returned  as floats, or returns them as "None" and asks the user to try again, if they can't be cast to floats)
+    #Prompt for the latitude and longitude (returned  as floats, or returns them as "None" and asks the user to try again, if they can't be cast to floats)
     def getLatLong ():
         user_Latitude = input("Please enter the decimal latitude (ex: 55.74994204): ")
         user_Longitude = input("Please enter the decimal longitude (ex: -97.86662093): ")
@@ -114,18 +112,18 @@ def getInputForAnApartment ():
 
             return None, None
         if user_Latitude <-90 or user_Latitude > 90 or user_Latitude > 180 or user_Latitude < -180: 
-            print("Those coordinates cannot be calculated, please try again.")
+            print("Please enter meaningful latitude and longitude values.")
             return None, None 
         return round(user_Latitude, 8), round(user_Longitude, 8)
 
     while (user_Latitude is None or user_Longitude is None):
         locationType = input("Would you like to select from a list of Canadian cities, or provide the latitude/longitude coordinates? (city/coords): ")
         
-        # If user wants to enter just coordinates 
+        #If user wants to enter just coordinates 
         if locationType == "coords":
             user_Latitude, user_Longitude = getLatLong()
 
-        # If they want to enter a city name, we check if we have it in the (latlong csv by YJ), and if not then they have to enter coordinates
+        #If they want to enter a city name, we check if we have it in the (latlong csv by YJ), and if not then they have to enter coordinates
         elif locationType == "city":
             city_name = input("Please enter the Canadian city the prospective apartment is located in: ")
             city_name = city_name.upper()  
@@ -144,7 +142,7 @@ def getInputForAnApartment ():
         else:
             print("Please reply with 'city' or 'coords' to decide how to input the location\n")
 
-    ### Get data for other building - written by BC###
+    ### Get data for other building - written by YJ and BC ###
     building_height = None
     building_distance = None
 
@@ -156,53 +154,50 @@ def getInputForAnApartment ():
             building_height = float(building_height)
             building_distance = float(building_distance)
 
-        # If the inputs can't be made into numbers, tell the user to try again
+        #If the inputs can't be made into numbers, tell the user to try again
         except ValueError:
-            #   so if we couldn't make them numbers, make them None so that the loop will go again and the user can try entering the values again
+            #If we couldn't make them numbers, make them None so that the loop will go again and the user can try entering the values again
             building_height = None
             building_distance = None
             print("Please enter both the building height and building distance as numeric values in meters.  Try again:\n")
 
-    ### get date that user is focused on ###
-    # Starts not defined
+    ### Get date that user is focused on - written by BC ###
+    #Starts not defined
     DayVal = None
 
-    # loop lets them try again if they enter invalid values
     while (DayVal is None):
-        # Try to enter values and get the DayVal
         try:
-            # Ask the user for the month and day and make them into ints
+            #Ask the user for the month and day and make them into ints
             user_FocusMonth = input("Please enter the month you would like to calculate sunlight exposure for: ")
             user_FocusDay = input("Please enter the day you would like to calculate sunlight exposure for, as a number (1-31): ")
-            user_FocusMonth = user_FocusMonth.lower()  # make it lowercase because the monthNumberFromEnglishName dictionary is all lowercase
+            user_FocusMonth = user_FocusMonth.lower()  
 
-            # If we recognize the text as the name of a month, convert it to a number
+            #If we recognize the text as the name of a month, convert it to a number
             if user_FocusMonth in monthNumberFromEnglishName.keys():
                 user_FocusMonth = monthNumberFromEnglishName[user_FocusMonth]
 
-            # otherwise, its hopefully a number
+            #Otherwise, its hopefully a number
             else:
                 user_FocusMonth = int(user_FocusMonth)
-                if user_FocusMonth not in range(1,13):  # its 13 because the last number is not included - this makes sure its in 1-12 inclusive
+                if user_FocusMonth not in range(1,13): 
                     raise ValueError("The month must be in the range 1-12!")
 
-            # Day must be a number
+            #Day must be a number
             user_FocusDay = int(user_FocusDay)
             if user_FocusDay not in range(1, daysInEachMonth[user_FocusMonth - 1] + 1):  # checks that day is in the range for that month (e.g. no feb 31)
                 raise ValueError("The day must be in the range 1-31!")
 
-            # Get the "day of the year" by adding up all the days in the months up to (not including) the focus month, and then adding the days
-            # ASSUMPTION: not a leap year
+            #Get the "day of the year" by adding up all the days in the months up to (not including) the focus month, and then adding the days
             DayVal = sum(daysInEachMonth[:user_FocusMonth - 1]) + user_FocusDay
 
-        # If it didn't work, reset everything to None and tell them to try again
+        #If it didn't work, reset everything to None and tell them to try again
         except ValueError:
             user_FocusMonth = None
             user_FocusDay = None
             DayVal = None
             print("The month and day must be entered in a readable format (e.g. 'aug' or '8' for month, day must be a number 1-31).  Please try again!\n")
     
-    # DayOfFocus - human readable date string for the output
+    #DayOfFocus - human readable date string for the output
     DayOfFocus = monthNames[user_FocusMonth - 1] + " " + str(user_FocusDay)
 
     ### return all the inputs for a single location ###
@@ -210,11 +205,10 @@ def getInputForAnApartment ():
 
 
 ################### SUNLIGHT HOUR STATISTICS  ##########################
-#Lead: Chris
-#Support: N/A
-#Notes: 
-#Sources: 
-# sunlight hours function
+#Lead: Chris B.
+#Support: CHRIS - ADD OR DELETE 
+#Notes: This section calculates the minimum, maximum, average and sum of possible sunlight hours 
+#Sources: CHRIS - ADD OR DELETE 
 ####################################################################
 
 def sunlighthourstatistics (user_Latitude):
@@ -242,14 +236,12 @@ print("Total Yearly Hours of Sunlight",sunlighthourstatistics(76)[3])
 
 ###################ARCPY MODULE##########################
 #Lead: Adrian K. 
-#Support: n/a
 #Notes: This section imports the output table with the calculations provided into
 #an existing ArcGIS Project Geodatabase, converts it into a point feature class, adds
 #the feature class to the map, and exports the results as a shapefile for dissimination. This section 
-# will make a new "copy" of the feature class and shapefile each time it is run and save as in a copy of the ArcGIS Project.
+# will make a new "copy" of the feature class and shapefile each time it is run and 'save as' in a copy of the ArcGIS Project.
 # It is recommended best practice that the user removes or renames previous versions of the feature classes / shapefiles between
 # each run. 
-
 #Assumption: Geospatial data will be provided in WGS 1984 Geocordinate System. 
 #Sources: Support from Karen Whillians (professor), Esri Website
 #https://pro.arcgis.com/en/pro-app/latest/tool-reference/data-management/xy-table-to-point.htm
@@ -282,8 +274,8 @@ def GeoSpatialFunction():
             else:
                 break
 
-        # XYTable to Point - Converting the Table to a Point Feature Class
-        # Without setting the optional spatial reference parameter, spatial reference will be WGS1984 by default
+        #XYTable to Point - Converting the Table to a Point Feature Class
+        #Without setting the optional spatial reference parameter, spatial reference will be WGS1984 by default
         x_coords = "Longitude"
         y_coords = "Latitude"
         arcpy.management.XYTableToPoint(aFile, A3T7_feature_class, x_coords, y_coords)
@@ -293,7 +285,7 @@ def GeoSpatialFunction():
         print(class_to_add)
         Map1.addDataFromPath(class_to_add)
 
-        # #Converting and Exporting a FeatureClass for dissemination, then adding it to the Map
+        #Converting and Exporting a FeatureClass for dissemination, then adding it to the Map
         arcpy.FeatureClassToShapefile_conversion(A3T7_feature_class, cwd + r"\ShapeFileDestination")
         A3T7ShapeFilePath = cwd + "\\ShapeFileDestination\\"
         A3T7ShapeFile = A3T7_feature_class
@@ -301,7 +293,7 @@ def GeoSpatialFunction():
         ShapeFileCombo = A3T7ShapeFilePath + A3T7ShapeFile + FileExtension
         Map1.addDataFromPath(ShapeFileCombo)
 
-        #'Clean up and turn off the lights' - prevent ArcGIS project overwritting or file locks
+        #Clean up and turn off the lights' - prevent ArcGIS project overwritting or file locks
         aprx.saveACopy(cwd + r"\A3Team7ProjectCOPY.aprx")
         del aprx
         print("A feature class has been added to your geodatabase, and a Shapefile has been added to the 'ShapeFileDestination' Folder")
@@ -309,30 +301,28 @@ def GeoSpatialFunction():
         print("There was an issue with the geospatial section of the project.")
 
 ################### DISPLAY APARTMENT RESULTS ##########################
-#Lead: Becca
-#Support: N/A
-#Notes: 
-#Sources: 
+#Lead: Becca C.
+#Notes: This section displays all of the in-program outputs including the user inputs and calculated values for each apartment. 
 ########################################################################
 
-def displayResultsForAnApartment (user_Latitude, user_Longitude, city_name, DayOfFocus, FocusDay_MinimumHeight, SummSolstice_MinimumHeight, WintSolstice_MinimumHeight, FocusDay_SunlightHours, AnnualTotalSunlight, AnnualAvgSunlight, AnnualMin, AnnualMax):
+def displayResultsForAnApartment (user_Latitude, user_Longitude, city_name, DayOfFocus, FocusDay_MinimumHeight, SummSolstice_MinimumHeight, WintSolstice_MinimumHeight, FocusDay_SunlightHours, AnnualTotalSunlight, AnnualAvgSunlight, AnnualMin, AnnualMax):s
     '''Output the results for an apartment in three parts: The apartment info, minimum height results, and hours of sunlight results'''
     print("\n------------------------------------------------------------------------------------------------------------")
 
-    # First part - apartment info
+    #First part - apartment info
     print("\nThe results for the prospective apartment are as follows:")
     print("    Latitude:       ", user_Latitude)
     print("    Longitude:      ", user_Longitude)
     print("    City:           ", city_name)
     print("    Date:           ", DayOfFocus)
 
-    # Second part - minimum height results
+    #Second part - minimum height results
     print("\nTo get at least 1 hour of sunlight, the minimum height (in meters) of the prospective apartment must be:")
     print("    On your chosen date:           ", FocusDay_MinimumHeight)
     print("    On the winter solstice:        ", WintSolstice_MinimumHeight)
     print("    On the summer solstice:        ", SummSolstice_MinimumHeight)
 
-    # Third part - hours of sunlight results
+    #Third part - hours of sunlight results
     print("\nThe potential hours of sunlight for " + city_name + " is:")
     print("    On your chosen date:           ", FocusDay_SunlightHours)
     print("    On the day with the most sun:  ", AnnualMax)
@@ -348,7 +338,7 @@ def displayResults (latitude_list, longitude_list, city_name_list, DayOfFocus_li
     print("\n------------------------------------------------------------------------------------------------------------\n")
 
 ################### MAIN PROGRAM ##############################################################
-#Lead: Adrian 
+#Lead: Adrian K.
 #Support: All (completed together, w/ Adrian inputting, various parts taken out of other modules )
 #Notes: See Readme file
 #Sources: See Readme file
@@ -364,7 +354,7 @@ def main():
     print(startMessage)
 
     ### Get all the values for the locations ###
-    # Empty lists to hold the inputs
+    #Empty lists to hold the inputs
     latitude_list = []
     longitude_list = []
     city_name_list = []
@@ -384,9 +374,9 @@ def main():
     SummSolstice_DayVal = 172
     WintSolstice_DayVal = 355
 
-    # Get inputs for apartments until they decide to stop entering values
+    #Get inputs for apartments until they decide to stop entering values
     while (True):
-        # Get inputs for an apartment
+        #Get inputs for an apartment
         user_Latitude, user_Longitude, city_name, building_height, building_distance, DayOfFocus, DayVal = getInputForAnApartment()
         latitude_list.append(user_Latitude)
         longitude_list.append(user_Longitude)
@@ -403,25 +393,25 @@ def main():
             break
         
     ### get shp options ###
-    # default values
+    #default values
     user_wants_shp = False
 
-    # Ask user if they want to perform the geospatial functions
+    #Ask user if they want to perform the geospatial functions 
     wants_shp_input = input("Would you like to perform geospatial functions with ArcGIS Pro? Yes or No: ")
 
-    # If they want it, set user_wants_shp to true and ask them for all the details
+    #If they want it, set user_wants_shp to true and ask them for all the details
     if wants_shp_input.lower() == "yes" or wants_shp_input.lower() == "y" :
         user_wants_shp = True
         print("A feature class and shapefile file will be generated")
 
-    # If they don't want it, leave the default (blank) values
+    #If they don't want it, leave the default (blank) values
     else:
         print("A feature class and shapefile file will not be generated")
 
     #Call the necessary functions to complete each calculation, for each location provided by the user
     numberOfapartments = len(latitude_list)
     for i in range(numberOfapartments):
-        #Establish temporary variabels that can be written over for each iteration of the loop.
+        #Establish temporary variables that can be written over for each iteration of the loop.
         user_LatitudeTemp = latitude_list[i]
         building_distanceTemp =  building_distance_list[i]
         building_heightTemp = building_height_list[i]
@@ -454,10 +444,10 @@ def main():
         AnnualTotalSunlightHour.append(sumhour)
 
     ################### MAIN PROGRAM - OUTPUT TABLE  ##########################
-    #Lead: Yingjia
-    #Support:
-    #Notes: 
-    #Sources: 
+    #Lead: Yingjia Y.
+    #Support: YJ - ADD OR DELETE 
+    #Notes: This section creates an output table in a csv file which contains the user inputs and calculated values. 
+    #Sources: YJ - ADD OR DELETE 
     ##########################################################################
 
     myheader=['CityName','Latitude','Longitude','DayOfFocus','DayOfFocusHeight','DayofFocusHour','WinterHeight','SummerHeight','AnnualTotalSunlightHour','AnnualAvgSunlightHour','AnnualMinHour','AnnualMaxHour']
@@ -468,7 +458,7 @@ def main():
         for i in range(numberOfapartments):
             writer.writerow([city_name_list[i],latitude_list[i],longitude_list[i],DayOfFocus_list[i],DayOfFocusHeight[i],DayofFocusHour[i],WinterHeight[i],SummerHeight[i],AnnualTotalSunlightHour[i],AnnualAvgSunlightHour[i],AnnualMinHour[i],AnnualMaxHour[i]])
    
-   ######################MAIN PROGRAM - COTINUED ##############################
+   ###################### MAIN PROGRAM - CONTINUED ##############################
     displayResults (latitude_list, longitude_list, city_name_list, DayOfFocus_list, DayOfFocusHeight, SummerHeight, WinterHeight, DayofFocusHour, AnnualTotalSunlightHour, AnnualAvgSunlightHour, AnnualMinHour, AnnualMaxHour)
 
     #Call the ArcPy Module

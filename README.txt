@@ -34,7 +34,7 @@ for easy dissemination.
     accurate at extreme latitudes. 
 -   Height and distance calculations will be meters.
 -   Calculations are for potential hours of sunlight, and can’t account for overcast days, storms, etc.
--   Geospatial data will be provided in WGS 1984 Geocordinate System. 
+-   Geospatial data will be provided in WGS 1984 Geocoordinate System. 
 ###############################################################
 
 ################### IDENTIFIED BUGS ###########################
