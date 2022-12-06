@@ -24,7 +24,7 @@ import csv
 #########################################################
 
 def minimumheight(user_Latitude,building_distance,building_height,DayVal):
-  
+    """CHRIS ADD FUNCTION COMMENT"""
     FocusDay_DeclinationAngle=-23.45*math.cos((math.pi/180)*(360/365)*(DayVal+10)) #declination angle calculation    
     ElevationAngle=90-float(user_Latitude)+float(FocusDay_DeclinationAngle) #elevation angle calculation    
     minimumheight=building_height-(math.tan((math.pi/180)*ElevationAngle))*building_distance #MinimumHeight calculation
@@ -42,7 +42,7 @@ def minimumheight(user_Latitude,building_distance,building_height,DayVal):
 #########################################################
 
 def SunlightCalculator(DayVal,user_Latitude):
-
+    """CHRIS ADD FUNCTION COMMENT"""
     HoursofSunlight = 2*((1/15)*(180/math.pi)*(math.acos(((math.pi/180)*(-math.tan(float(user_Latitude)*(math.pi/180))*((math.tan(((23.44*(math.pi/180))*((math.sin(((360/365)*(math.pi/180)*(DayVal+284))))))))))))))
     HoursofSunlight = round(float(HoursofSunlight),2)
 
@@ -233,7 +233,7 @@ def getInputForAnApartment ():
 ####################################################################
 
 def sunlighthourstatistics (user_Latitude):
-
+    """CHRIS ADD FUNCTION COMMENT"""
     #latitude = 76
     #dayVal = 1   
         
@@ -272,58 +272,57 @@ print("Total Yearly Hours of Sunlight",sunlighthourstatistics(76)[3])
 #https://pro.arcgis.com/en/pro-app/latest/arcpy/mapping/map-class.htm
 #########################################################
 
-# def GeoSpatialFunction(): 
-    # cwd = os.getcwd()
-#     try:
-#         arcpy.env.workspace = (cwd + r"\A3Team7Project.gdb")
-#         # arcpy.env.overwriteOutput = True          #Turn this on if you wish to overwrite files instead of making copys,and remove the following While loop. 
+def GeoSpatialFunction(): 
+    """Add the output table as a point feature class in a geodatabase, add to the map, and export a shapefile for dissimnation"""
+    cwd = os.getcwd()
+    try:
+        arcpy.env.workspace = (cwd + r"\A3Team7Project.gdb")
+        # arcpy.env.overwriteOutput = True          #Turn this on if you wish to overwrite files instead of making copys,and remove the following While loop. 
 
-#         #Setting up ArcPy Mapping Module
-#         aprx = arcpy.mp.ArcGISProject(cwd + r"\A3Team7Project.aprx")
-#         Map1 = aprx.listMaps()[0]
+        #Setting up ArcPy Mapping Module
+        aprx = arcpy.mp.ArcGISProject(cwd + r"\A3Team7Project.aprx")
+        Map1 = aprx.listMaps()[0]
 
-#         #Preparing the Table
-#         aFile = cwd + r"\A3Team7Output.csv" 
-#         output_gdb = cwd + r"\A3Team7Project.gdb"
-#         output_gdbALT = cwd + "\\A3Team7Project.gdb\\"
-#         A3T7_feature_class = "A3Team7"
+        #Preparing the Table
+        aFile = cwd + r"\A3Team7Output.csv" 
+        output_gdb = cwd + r"\A3Team7Project.gdb"
+        output_gdbALT = cwd + "\\A3Team7Project.gdb\\"
+        A3T7_feature_class = "A3Team7"
 
-#         #Issue handling if there is an existing Feature Dataset in the geodatabase with the same name. 
-#         #Alternatively, this section can be removed and acrpy.env.overwriteOutput can be set to True
-#         while True:
-#             if arcpy.Exists(A3T7_feature_class):
-#                 print("Warning! Renaming Feature Class. Advise removing previous versions of the A3Team7 file(s) from the geodatabase and Shapefile folder")
-#                 A3T7_feature_class = A3T7_feature_class + "_copy"
-#             else:
-#                 break
+        #Issue handling if there is an existing Feature Dataset in the geodatabase with the same name. 
+        #Alternatively, this section can be removed and acrpy.env.overwriteOutput can be set to True
+        while True:
+            if arcpy.Exists(A3T7_feature_class):
+                print("Warning! Renaming Feature Class. Advise removing previous versions of the A3Team7 file(s) from the geodatabase and Shapefile folder")
+                A3T7_feature_class = A3T7_feature_class + "_copy"
+            else:
+                break
 
-#         # XYTable to Point - Converting the Table to a Point Feature Class
-#         # Without setting the optional spatial reference parameter, spatial reference will be WGS1984 by default
-#         x_coords = "Longitude"
-#         y_coords = "Latitude"
-#         arcpy.management.XYTableToPoint(aFile, A3T7_feature_class, x_coords, y_coords)
+        # XYTable to Point - Converting the Table to a Point Feature Class
+        # Without setting the optional spatial reference parameter, spatial reference will be WGS1984 by default
+        x_coords = "Longitude"
+        y_coords = "Latitude"
+        arcpy.management.XYTableToPoint(aFile, A3T7_feature_class, x_coords, y_coords)
 
-#         #Adding the Point Feature Class to the Map
-#         class_to_add = output_gdbALT + A3T7_feature_class
-#         print(class_to_add)
-#         Map1.addDataFromPath(class_to_add)
+        #Adding the Point Feature Class to the Map
+        class_to_add = output_gdbALT + A3T7_feature_class
+        print(class_to_add)
+        Map1.addDataFromPath(class_to_add)
 
-#         # #Converting and Exporting a FeatureClass for dissemination, then adding it to the Map
-#         arcpy.FeatureClassToShapefile_conversion(A3T7_feature_class, cwd + r"\ShapeFileDestination")
-#         A3T7ShapeFilePath = cwd + "\\ShapeFileDestination\\"
-#         A3T7ShapeFile = A3T7_feature_class
-#         FileExtension = ".shp"
-#         ShapeFileCombo = A3T7ShapeFilePath + A3T7ShapeFile + FileExtension
-#         Map1.addDataFromPath(ShapeFileCombo)
+        # #Converting and Exporting a FeatureClass for dissemination, then adding it to the Map
+        arcpy.FeatureClassToShapefile_conversion(A3T7_feature_class, cwd + r"\ShapeFileDestination")
+        A3T7ShapeFilePath = cwd + "\\ShapeFileDestination\\"
+        A3T7ShapeFile = A3T7_feature_class
+        FileExtension = ".shp"
+        ShapeFileCombo = A3T7ShapeFilePath + A3T7ShapeFile + FileExtension
+        Map1.addDataFromPath(ShapeFileCombo)
 
-#         #'Clean up and turn off the lights' - prevent ArcGIS project overwritting or file locks
-#         aprx.saveACopy(cwd + r"\A3Team7ProjectCOPY.aprx")
-#         del aprx
-#         print("A feature class has been added to your geodatabase, and a Shapefile has been added to the 'ShapeFileDesitnation' Folder")
-#     except Exception:
-#         print("There was an issue with the geospatial section of the project.")
-
-
+        #'Clean up and turn off the lights' - prevent ArcGIS project overwritting or file locks
+        aprx.saveACopy(cwd + r"\A3Team7ProjectCOPY.aprx")
+        del aprx
+        print("A feature class has been added to your geodatabase, and a Shapefile has been added to the 'ShapeFileDestination' Folder")
+    except Exception:
+        print("There was an issue with the geospatial section of the project.")
 
 
 ################### DISPLAY APARTMENT RESULTS ##########################
@@ -410,14 +409,7 @@ def main():
         print()
         if end.upper() == 'Y' :
             break
-        #delete these
-        # myheader=['CityName','Latitude','Longitude','DayOfFocus','DayOfFocusHeight','DayofFocusHour','WinterHeight','SummerHeight','WinterHeight','AnnualTotalSunlightHour','AnnualAvgSunlightHour','AnnualMinHour','AnnualMaxHour']
-        # with open('output.csv','w',newline='') as newfile:
-        #     writer=csv.writer(newfile)
-        #     writer.writerow(myheader)
-        #     for i in range(len(latitude_list)):
-        #         writer.writerow([city_name_list[i],latitude_list[i],longitude_list[i],DayOfFocus_list[i],building_height_list[i],building_distance_list[i]])
-
+        
     ### get shp options ###
     # default values
     user_wants_shp = False
@@ -494,6 +486,8 @@ def main():
     displayResults (latitude_list, longitude_list, city_name_list, DayOfFocus_list, DayOfFocusHeight, SummerHeight, WinterHeight, DayofFocusHour, AnnualTotalSunlightHour, AnnualAvgSunlightHour, AnnualMinHour, AnnualMaxHour)
 
     #Call the ArcPy Module
+    if user_wants_shp == True: 
+        GeoSpatialFunction()
 
 
 
