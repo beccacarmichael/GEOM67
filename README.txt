@@ -1,5 +1,6 @@
 ################################## APARTMENT SEEKER SUNLIGHT CALCULATOR README ##################################
 ApartmentSeekerSunlightCalculator.py
+Last Updated: Dec-06-2022
 Readme section lead: Adrian Koornneef
 ################################################################################################################
 
@@ -34,7 +35,9 @@ for easy dissemination.
 -   Height and distance calculations will be meters.
 -   Calculations are for potential hours of sunlight, and can’t account for overcast days, storms, etc.
 -   Geospatial data will be provided in WGS 1984 Geocordinate System.
--   Average sunlight hours and total sunlight hours produces very similar results, as a result of the number of potential hours averaging over the course of the year.  
+-   Average potential sunlight hours and total sunlight hours rounded to nearly identical results, as stretching the results
+    out over the course of the year reflected rotation of the earth, with extreme values (e.g. 30 nights of sunlight / 30 days of darkness)
+    got averaged out. 
 ###############################################################
 
 ################### IDENTIFIED BUGS ###########################
@@ -76,6 +79,16 @@ Feature layer and shapefile are added to the active environment of a map in ArcG
 
 #################### CONTRIBUTIONS ############################
 See individual module heading section for code contributions.
+Modules:
+- Min Height calculator function: Chris / Yingjia
+- Day of focus sunlight calculator function: Chris / Yingjia
+- User interface: Becca / Yingjia
+- Sunlight hour statistics function: Chris
+- ArcPy: Adrian
+- Display results: Becca
+- Main program: Adrian / team 
+    -Output table: Yingjia
+
 Additional contributions not identified in individual code section:
 - Topic brainstorming leads: Yingjia, Adrian
 - Initial math feasibility check lead: Yingjia
