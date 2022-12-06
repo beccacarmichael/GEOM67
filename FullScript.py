@@ -41,7 +41,7 @@ def minimumheight(user_Latitude,building_distance,building_height,DayVal):
 
 def SunlightCalculator(DayVal,user_Latitude):
     """CHRIS ADD FUNCTION COMMENT"""
-    HoursofSunlight = 2*((1/15)*(180/math.pi)*(math.acos(((math.pi/180)*(-math.tan(float(user_Latitude)*(math.pi/180))*((math.tan(((23.44*(math.pi/180))*((math.sin(((360/365)*(math.pi/180)*(DayVal+284))))))))))))))
+    HoursofSunlight = 2*(1/15)*(180/math.pi)*math.acos((-math.tan((math.pi/180)*user_Latitude))*(math.tan((math.pi/180)*23.44*math.sin((360/365)*(DayVal+284)*(math.pi/180)))))
     HoursofSunlight = round(float(HoursofSunlight),2)
     return HoursofSunlight
 
@@ -218,7 +218,7 @@ def sunlighthourstatistics (user_Latitude):
         
     CalculationsList=[]
     for d in range(1,365):
-        sunlighthour=2*(1/15)*(180/math.pi)*math.acos((-math.tan((math.pi/180)*43.6))*(math.tan((math.pi/180)*23.44*math.sin((360/365)*(d+284)*(math.pi/180)))))
+        sunlighthour=2*(1/15)*(180/math.pi)*math.acos((-math.tan((math.pi/180)*user_Latitude))*(math.tan((math.pi/180)*23.44*math.sin((360/365)*(d+284)*(math.pi/180)))))
         CalculationsList.append(sunlighthour)
 
     #min,max,avg,sum
@@ -229,10 +229,6 @@ def sunlighthourstatistics (user_Latitude):
 
     return minhour,maxhour,avghour,sumhour
 
-print("Minimum Sunlight is",sunlighthourstatistics(76)[0])
-print("Maximum Sunlight is",sunlighthourstatistics(76)[1])
-print("Average Sunlight is",sunlighthourstatistics(76)[2])
-print("Total Yearly Hours of Sunlight",sunlighthourstatistics(76)[3])
 
 ###################ARCPY MODULE##########################
 #Lead: Adrian K. 
@@ -452,7 +448,7 @@ def main():
 
     myheader=['CityName','Latitude','Longitude','DayOfFocus','DayOfFocusHeight','DayofFocusHour','WinterHeight','SummerHeight','AnnualTotalSunlightHour','AnnualAvgSunlightHour','AnnualMinHour','AnnualMaxHour']
 
-    with open('output.csv','w',newline='') as newfile:
+    with open('A3Team7Output.csv','w',newline='') as newfile:
         writer=csv.writer(newfile)
         writer.writerow(myheader)
         for i in range(numberOfapartments):

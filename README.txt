@@ -1,4 +1,3 @@
-
 ################################## APARTMENT SEEKER SUNLIGHT CALCULATOR README ##################################
 ApartmentSeekerSunlightCalculator.py
 Readme section lead: Adrian Koornneef
@@ -42,16 +41,59 @@ Shapefiles truncate the header name in the attribute table. Doesn't occur in Fea
 ###############################################################
 
 ###################### TEST FILES #############################
-Test files can be found in the test file folder for screenshots, output csv.'s and .shp files. 
+Test files can be found in the test file folder for output csv.'s and .shp files. 
 Test feature classes can be found in the geodatabase. 
 ###############################################################
 
+#################### INPUTS ###################################
+List of Canadian cities .csv (see sources for more information)
+Inputs required from user: 
+    - Lat / Long cooridinates or name of Canadian city for desired apartment location
+    - Day of study (i.e. FocusDay)
+    - Height of southern influencing building
+    - Distance of southern influencing building from desired apartment location
+    - Confirmation when the user wishes to end adding apartment locations
+    - Confirmation if the user would like geospatial project compelte
+#################################################################
+
+#################### Outputs ###################################
+Values provided:
+    - Minimum apartment height for the day of focus, to receive at least 1 hour of sunlight
+    - Minimum apartment height at winter solstice (i.e. shortest day of the year)
+    - Minimum apartmennt height at summer solistice (i.e. longest day of the year)
+    - Hours of potential sunlight expected at the provided location (not inside the apartment itself) for day of focus
+    - Hours of potential sunlight expected at the provided location for winter solstice 
+    - Hours of potential sunlight expected at the provided location for summer solstice
+    - Average number of potential sunlight hours expected throughout the year at the provided location
+    - Total number of potential sunlight hours expected throughout the year at the provided location
+Values are provided as text in the terminal interface
+Values are provided as an output .csv
+Values are provided in an attribute table in a point feature class in the ArcGIS geodatabase
+Values are  provided in an attribute table of a shapefile in the 'ShapefileDestination' folder
+Feature layer and shapefile are added to the active environment of a map in ArcGIS project in a saved copy
+#################################################################
+
+#################### CONTRIBUTIONS ############################
+See individual module heading section for code contributions.
+Additional contirbutions not identified in individual code section:
+- Topic brainstorming leads: Yingjia, Adrian
+- Initial math feasibility check lead: Yingjia
+- Extensive algroithm testing (project design): Chris
+- Initial python algroithm drafting and debugging: Yingjia
+- Debugging: Chris, Yingjia
+- Github repository management: Becca
+- Readme: Adrian
+- Code formatting for neatness: Adrian
+- Meetings lead: Adrian
+#################################################################
+
 #################### SOURCES ##################################
--Sunrise and Sunset Time Calculator | Sunrise Equation. (n.d.). Had2Know. Retrieved November 15, 2022, from https://www.had2know.org/society/sunrise-sunset-time-calculator-formula.html
--Honsberg, C. B., & Bowden, S. G. (2019). Elevation Angle | PVEducation. https://www.pveducation.org/pvcdrom/properties-of-sunlight/elevation-angle
--Honsberg, C. B., & Bowden, S. G. (2019). Declination Angle | PVEducation. https://www.pveducation.org/pvcdrom/properties-of-sunlight/declination-angle
+-Formulas:
+    -Sunrise and Sunset Time Calculator | Sunrise Equation. (n.d.). Had2Know. Retrieved November 15, 2022, from https://www.had2know.org/society/sunrise-sunset-time-calculator-formula.html
+    -Honsberg, C. B., & Bowden, S. G. (2019). Elevation Angle | PVEducation. https://www.pveducation.org/pvcdrom/properties-of-sunlight/elevation-angle
+    -Honsberg, C. B., & Bowden, S. G. (2019). Declination Angle | PVEducation. https://www.pveducation.org/pvcdrom/properties-of-sunlight/declination-angle
 -Support from Karen Whillians (professor) 
--Esri Website
+-Esri Website:
     -https://pro.arcgis.com/en/pro-app/latest/tool-reference/data-management/xy-table-to-point.htm
     -https://pro.arcgis.com/en/pro-app/latest/arcpy/mapping/map-class.htm
 ###############################################################
