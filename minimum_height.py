@@ -16,8 +16,11 @@ def minimumheight(user_Latitude,building_distance,building_height,DayVal):
     minimumheight=building_height-(math.tan((math.pi/180)*ElevationAngle))*building_distance #MinimumHeight calculation
     minimumheight=round(minimumheight,2) #Rounding Final Answer
 
-    return minimumheight
+    if minimumheight > 0:
+        return minimumheight
+    else:
+        return 0
 
-print('This is a test of minimum height', minimumheight(71,25,25,1))
+print('This is a test of minimum height', minimumheight(200,25,25,1))
 
    #still need it for winterSol_minHeight, Summsol_MinHeight
