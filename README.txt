@@ -89,7 +89,6 @@ Modules:
 - Display results: Becca
 - Main program: Adrian / team 
     -Output table: Yingjia
-- Testing lead: Adrian
 
 Additional contributions not identified in individual code section:
 - Topic brainstorming leads: Yingjia, Adrian
@@ -101,6 +100,7 @@ Additional contributions not identified in individual code section:
 - Readme: Adrian
 - Code formatting for neatness: Adrian
 - Meetings lead: Adrian
+- Testing lead: Adrian
 #################################################################
 
 #################### SOURCES ##################################
