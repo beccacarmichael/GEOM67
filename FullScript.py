@@ -34,6 +34,7 @@
 # - Readme: Adrian
 # - Code formatting for neatness: Adrian
 # - Meetings lead: Adrian
+# - Testing lead: Adrian
 
 #Sources: -Formulas:
 #     -Sunrise and Sunset Time Calculator | Sunrise Equation. (n.d.). Had2Know. Retrieved November 15, 2022, from https://www.had2know.org/society/sunrise-sunset-time-calculator-formula.html
