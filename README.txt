@@ -5,7 +5,7 @@ Readme section lead: Adrian Koornneef
 ################################################################################################################
 
 #################### AUTHORS ####################################
-Adrian Koornneef, Chris Boom, Becca Charmichael, Yingjia Ye
+Adrian Koornneef, Chris Broom, Becca Charmichael, Yingjia Ye
 #################################################################
 
 #################### PURPOSE ####################################
