@@ -481,10 +481,10 @@ def main():
         sumhour = sunlighthourstatistics(user_LatitudeTemp)[3]
         AnnualTotalSunlightHour.append(sumhour)
 
-    ################### MAIN PROGRAM - OUTPUT TABLE  ##########################
+    ################### MAIN PROGRAM - OUTPUT TABLE  ################################
     #Lead: Yingjia Y.
     #Notes: This section writes to a csv file which contains the user inputs and calculated values. 
-    ##########################################################################
+    #################################################################################
 
     myheader=['CityName','Latitude','Longitude','DayOfFocus','DayOfFocusHeight','DayofFocusHour','WinterHeight','SummerHeight','AnnualTotalSunlightHour','AnnualAvgSunlightHour','AnnualMinHour','AnnualMaxHour']
 
@@ -494,7 +494,7 @@ def main():
         for i in range(numberOfapartments):
             writer.writerow([city_name_list[i],latitude_list[i],longitude_list[i],DayOfFocus_list[i],DayOfFocusHeight[i],DayofFocusHour[i],WinterHeight[i],SummerHeight[i],AnnualTotalSunlightHour[i],AnnualAvgSunlightHour[i],AnnualMinHour[i],AnnualMaxHour[i]])
    
-   ###################### MAIN PROGRAM - CONTINUED ##############################
+   ###################### MAIN PROGRAM - CONTINUED ###################################
     displayResults (latitude_list, longitude_list, city_name_list, DayOfFocus_list, DayOfFocusHeight, SummerHeight, WinterHeight, DayofFocusHour, AnnualTotalSunlightHour, AnnualAvgSunlightHour, AnnualMinHour, AnnualMaxHour)
 
     #Call the ArcPy Module
