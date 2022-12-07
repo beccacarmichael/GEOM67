@@ -30,7 +30,7 @@
 # - Initial python algorithm drafting and debugging: Yingjia
 # - Debugging: Chris, Yingjia
 # - Github repository management: Becca
-# - Spelling and formatting error check: Becca 
+# - Proofreading, spelling and formatting error check: Becca & Yingjia
 # - Readme: Adrian
 # - Code formatting for neatness: Adrian
 # - Meetings lead: Adrian
