@@ -22,7 +22,7 @@
 # - ArcPy: Adrian
 # - Display results: Becca
 # - Main program: Adrian / team 
-#     -Output table: Yingjia
+# - Output table: Yingjia
 # Additional contributions not identified in individual code section:
 # - Topic brainstorming leads: Yingjia, Adrian
 # - Initial math feasibility check lead: Yingjia
@@ -30,6 +30,7 @@
 # - Initial python algorithm drafting and debugging: Yingjia
 # - Debugging: Chris, Yingjia
 # - Github repository management: Becca
+# - Spelling and formatting error check: Becca 
 # - Readme: Adrian
 # - Code formatting for neatness: Adrian
 # - Meetings lead: Adrian
@@ -62,7 +63,7 @@ import csv
 ##################################################################################
 
 def minimumheight(user_Latitude,building_distance,building_height,DayVal):
-    """This function does three calculations to return the required height of the users inputed building. 
+    """This function does three calculations to return the required height of the users inputted building. 
     Calculation 1 is of declination angle given users day of focus. 
     Calculation 2 is of the elevation angle 
     Calculation 3 is of the minimum height of the building rounded to two decimal places
@@ -89,12 +90,12 @@ def SunlightCalculator(DayVal,user_Latitude):
     HoursofSunlight = round(float(HoursofSunlight),2)
     return HoursofSunlight
 
-################### USER INTERFACE MODULE #######################################
+########################## USER INTERFACE MODULE #################################
 #Lead: Becca C & Yingjia Y 
 #Notes: This section includes all of the prompts for the user input for the program to get all of the apartment data,
 # and the DayValu calculator which calculates how many days into the year the selected date is.    
 #Assumptions: the calculation is not being made for a leap year
-##############################################################################
+#################################################################################
 
 def getInputForAnApartment ():
     '''Get all of the inputs for a single apartment.  There are three parts:
@@ -205,7 +206,7 @@ def getInputForAnApartment ():
             building_distance = None
             print("Please enter both the building height and building distance as numeric values in meters.  Try again:\n")
 
-    ### Get date that user is focused on - written by BC ###
+    ### DayValu calculator (which calculates how many days into the year the selected date is) and get the date that user is focused on - written by BC ###
     #Starts not defined
     DayVal = None
 
@@ -248,12 +249,12 @@ def getInputForAnApartment ():
     return user_Latitude, user_Longitude, city_name, building_height, building_distance, DayOfFocus, DayVal
 
 
-################### SUNLIGHT HOUR STATISTICS  ##########################
+################### SUNLIGHT HOUR STATISTICS  ###################################
 #Lead: Chris B.
 #Support: Yingjia Y 
 #Notes: This section calculates the minimum, maximum, average and sum of possible sunlight hours 
 #Sources: See Readme file
-####################################################################
+##################################################################################
 
 def sunlighthourstatistics (user_Latitude):
     """This function provides basic statistics. The calculation of sunlight hours is looped 365 times. It creates a lists of 365 min,max,avg,sum values."""
@@ -271,7 +272,7 @@ def sunlighthourstatistics (user_Latitude):
     return minhour,maxhour,avghour,sumhour
 
 
-################### ARCPY MODULE##########################
+############################### ARCPY MODULE ######################################
 #Lead: Adrian K. 
 #Notes: This section imports the output table with the calculations provided into
 #an existing ArcGIS Project Geodatabase, converts it into a point feature class, adds
@@ -283,14 +284,14 @@ def sunlighthourstatistics (user_Latitude):
 #Sources: Support from Karen Whillians (professor), Esri Website
 #https://pro.arcgis.com/en/pro-app/latest/tool-reference/data-management/xy-table-to-point.htm
 #https://pro.arcgis.com/en/pro-app/latest/arcpy/mapping/map-class.htm
-#########################################################
+##################################################################################
 
 def GeoSpatialFunction(): 
-    """Add the output table as a point feature class in a geodatabase, add to the map, and export a shapefile for dissimnation"""
+    """Add the output table as a point feature class in a geodatabase, add to the map, and export a shapefile for dissemination"""
     cwd = os.getcwd()
     try:
         arcpy.env.workspace = (cwd + r"\A3Team7Project.gdb")
-        # arcpy.env.overwriteOutput = True          #Turn this on if you wish to overwrite files instead of making copys,and remove the following While loop. 
+        # arcpy.env.overwriteOutput = True          #Turn this on if you wish to overwrite files instead of making copies,and remove the following While loop. 
 
         #Setting up ArcPy Mapping Module
         aprx = arcpy.mp.ArcGISProject(cwd + r"\A3Team7Project.aprx")
@@ -330,17 +331,17 @@ def GeoSpatialFunction():
         ShapeFileCombo = A3T7ShapeFilePath + A3T7ShapeFile + FileExtension
         Map1.addDataFromPath(ShapeFileCombo)
 
-        #Clean up and turn off the lights' - prevent ArcGIS project overwritting or file locks
+        #Clean up and turn off the lights' - prevent ArcGIS project overwriting or file locks
         aprx.saveACopy(cwd + r"\A3Team7ProjectCOPY.aprx")
         del aprx
         print("A feature class has been added to your geodatabase, and a Shapefile has been added to the 'ShapeFileDestination' Folder")
     except Exception:
         print("There was an issue with the geospatial section of the project.")
 
-################### DISPLAY APARTMENT RESULTS ##########################
+######################### DISPLAY APARTMENT RESULTS ###############################
 #Lead: Becca C.
 #Notes: This section displays all of the in-program outputs including the user inputs and calculated values for each apartment. 
-########################################################################
+##################################################################################
 
 def displayResultsForAnApartment (user_Latitude, user_Longitude, city_name, DayOfFocus, FocusDay_MinimumHeight, SummSolstice_MinimumHeight, WintSolstice_MinimumHeight, FocusDay_SunlightHours, AnnualTotalSunlight, AnnualAvgSunlight, AnnualMin, AnnualMax):
     '''Output the results for an apartment in three parts: The apartment info, minimum height results, and hours of sunlight results'''
@@ -374,12 +375,12 @@ def displayResults (latitude_list, longitude_list, city_name_list, DayOfFocus_li
         
     print("\n------------------------------------------------------------------------------------------------------------\n")
 
-################### MAIN PROGRAM ##############################################################
+############################## MAIN PROGRAM #######################################
 #Lead: Adrian K.
 #Support: All (completed together, w/ Adrian inputting, various parts taken out of other modules )
 #Notes: See Readme file
 #Sources: See Readme file
-###############################################################################################
+#####################################################################################
 
 def main():
     """This is the main program, which calls various functions from different modules"""
